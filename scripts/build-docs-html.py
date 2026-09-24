@@ -580,10 +580,14 @@ def main():
     print(f"nav: {nav.relative_to(root)}")
 
     mds = sorted(root.rglob("*.md"))  # 含导览 index.md
+    rendered = 0
     for md in mds:
+        if md.name == "index.md":
+            continue  # 导览 index 已由 generate_nav 生成并渲染为带样式的 index.html，跳过避免覆盖
         out = render_one(md, root, args.site_name, group_labels)
+        rendered += 1
         print(f"built: {out.relative_to(root)}")
-    print(f"done: {len(mds)} markdown files rendered (incl. nav index)")
+    print(f"done: {rendered} markdown files rendered (nav index excluded)")
 
     n = inject_back_buttons(root)
     print(f"back-to-index button injected into {n} html page(s)")
