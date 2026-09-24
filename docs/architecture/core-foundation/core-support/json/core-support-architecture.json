@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": { "title": "核心支撑架构图", "quality_profile": "showcase", "locale": "zh-CN", "viewBox": [900, 620] },
+  "components": [
+    { "id": "sqlmethod", "type": "backend", "label": "SqlMethod 枚举", "pos": [110, 110], "size": [180, 56], "tag": "SQL模板" },
+    { "id": "compat", "type": "backend", "label": "Compatible SPI", "pos": [110, 250], "size": [180, 56] },
+    { "id": "ignore", "type": "backend", "label": "拦截器忽略策略", "pos": [110, 390], "size": [180, 56] },
+    { "id": "runner", "type": "backend", "label": "ISqlRunner", "pos": [560, 110], "size": [180, 56] },
+    { "id": "injector", "type": "external", "label": "SQL 注入器", "pos": [560, 250], "size": [180, 56] },
+    { "id": "plugins", "type": "external", "label": "业务插件", "pos": [560, 390], "size": [180, 56] }
+  ],
+  "connections": [
+    { "id": "c1", "from": "sqlmethod", "to": "injector", "label": "提供模板", "variant": "emphasis", "labelDy": 22 },
+    { "id": "c2", "from": "runner", "to": "injector", "label": "注入语句", "variant": "default", "labelDy": 22 },
+    { "id": "c3", "from": "ignore", "to": "plugins", "label": "是否忽略", "variant": "default", "labelDy": 22 }
+  ],
+  "cards": [
+    { "dot": "emerald", "title": "要点", "items": ["枚举即SQL模板", "SPI兼容加载", "ThreadLocal忽略"] }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "diagram_type": "sequence",
+  "meta": { "title": "元对象填充与时序", "quality_profile": "showcase", "locale": "zh-CN", "viewBox": [1100, 800], "column_fit": "spread" },
+  "participants": [
+    { "id": "ph", "type": "external", "label": "参数处理器" },
+    { "id": "moh", "type": "backend", "label": "填充SPI" },
+    { "id": "ti", "type": "database", "label": "TableInfo" },
+    { "id": "eh", "type": "backend", "label": "枚举处理器" },
+    { "id": "jdbc", "type": "external", "label": "JDBC" }
+  ],
+  "messages": [
+    { "id": "m1", "from": "ph", "to": "moh", "y": 180, "label": "insertFill(实体)", "variant": "emphasis" },
+    { "id": "m2", "from": "moh", "to": "ti", "y": 250, "label": "查 fill 字段", "variant": "default" },
+    { "id": "m3", "from": "ti", "to": "moh", "y": 310, "label": "匹配字段", "variant": "return" },
+    { "id": "m4", "from": "moh", "to": "ph", "y": 380, "label": "set公共字段值", "variant": "default" },
+    { "id": "m5", "from": "ph", "to": "eh", "y": 450, "label": "枚举转库值", "variant": "default" },
+    { "id": "m6", "from": "eh", "to": "ph", "y": 510, "label": "库值", "variant": "return" },
+    { "id": "m7", "from": "ph", "to": "jdbc", "y": 580, "label": "setObject", "variant": "emphasis" },
+    { "id": "m8", "from": "jdbc", "to": "ph", "y": 650, "label": "写入完成", "variant": "return" }
+  ]
+}

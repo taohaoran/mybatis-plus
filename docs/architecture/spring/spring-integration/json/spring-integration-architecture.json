@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": { "title": "Spring 集成架构图", "quality_profile": "showcase", "locale": "zh-CN" },
+  "components": [
+    { "id": "ctx", "type": "external", "label": "Spring 容器", "pos": [60, 180], "size": [140, 60] },
+    { "id": "fb", "type": "backend", "label": "SqlSessionFactoryBean", "pos": [380, 180], "size": [190, 60], "tag": "Mybatis增强" },
+    { "id": "sql", "type": "database", "label": "SqlSessionFactory", "pos": [720, 180], "size": [170, 60] }
+  ],
+  "boundaries": [
+    { "kind": "region", "label": "mybatis-plus-spring", "wraps": ["fb"] }
+  ],
+  "connections": [
+    { "id": "c1", "from": "ctx", "to": "fb", "variant": "emphasis" },
+    { "id": "c2", "from": "fb", "to": "sql", "variant": "emphasis" }
+  ],
+  "cards": [
+    { "dot": "emerald", "title": "要点", "items": ["工厂Bean强制增强构建", "ServiceImpl/AR/SqlRunner 共享 SqlSession", "GlobalConfig 挂载增强组件"] }
+  ]
+}

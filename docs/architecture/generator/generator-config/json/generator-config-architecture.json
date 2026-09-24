@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": { "title": "生成器配置体系架构图", "quality_profile": "showcase", "locale": "zh-CN" },
+  "components": [
+    { "id": "ds", "type": "backend", "label": "DataSourceConfig", "pos": [60, 80], "size": [140, 56] },
+    { "id": "gl", "type": "backend", "label": "GlobalConfig", "pos": [60, 170], "size": [140, 56] },
+    { "id": "st", "type": "backend", "label": "StrategyConfig", "pos": [60, 260], "size": [140, 56] },
+    { "id": "pk", "type": "backend", "label": "PackageConfig", "pos": [60, 350], "size": [140, 56] },
+    { "id": "cfg", "type": "backend", "label": "ConfigBuilder", "pos": [380, 200], "size": [150, 64], "tag": "配置汇总根" },
+    { "id": "def", "type": "external", "label": "GeneratorBuilder", "pos": [380, 90], "size": [150, 52] },
+    { "id": "path", "type": "backend", "label": "PathInfoHandler", "pos": [640, 120], "size": [150, 52] },
+    { "id": "q", "type": "backend", "label": "IDatabaseQuery", "pos": [640, 230], "size": [150, 52], "tag": "反射实例化" },
+    { "id": "conv", "type": "external", "label": "类型转换族", "pos": [380, 330], "size": [150, 52] },
+    { "id": "po", "type": "database", "label": "TableInfo 模型", "pos": [640, 340], "size": [150, 56] }
+  ],
+  "boundaries": [
+    { "kind": "region", "label": "六类用户配置", "wraps": ["ds", "gl", "st", "pk"] },
+    { "kind": "region", "label": "配置汇总与扩展", "wraps": ["cfg", "def", "conv"] },
+    { "kind": "region", "label": "产出物", "wraps": ["path", "q", "po"] }
+  ],
+  "connections": [
+    { "id": "c1", "from": "ds", "to": "cfg", "label": "必传", "variant": "emphasis" },
+    { "id": "c2", "from": "gl", "to": "cfg" },
+    { "id": "c3", "from": "st", "to": "cfg" },
+    { "id": "c4", "from": "pk", "to": "cfg" },
+    { "id": "c5", "from": "def", "to": "cfg", "variant": "dashed" },
+    { "id": "c6", "from": "cfg", "to": "path" },
+    { "id": "c7", "from": "cfg", "to": "q", "variant": "emphasis" },
+    { "id": "c8", "from": "conv", "to": "cfg", "variant": "dashed" },
+    { "id": "c9", "from": "q", "to": "po", "variant": "dashed" }
+  ],
+  "cards": [
+    { "dot": "emerald", "title": "要点", "items": ["DataSourceConfig 唯一必传", "ConfigBuilder 构造期汇总", "查询类经反射创建"] }
+  ]
+}

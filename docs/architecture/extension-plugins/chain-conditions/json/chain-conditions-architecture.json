@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": { "title": "链式条件架构图", "quality_profile": "showcase", "locale": "zh-CN", "viewBox": [900, 420] },
+  "components": [
+    { "id": "abs", "type": "backend", "label": "AbstractChain", "pos": [80, 150], "size": [160, 60], "tag": "代理Wrapper" },
+    { "id": "qw", "type": "backend", "label": "QueryChain", "pos": [360, 60], "size": [150, 50] },
+    { "id": "lw", "type": "backend", "label": "LambdaQuery", "pos": [360, 125], "size": [150, 50] },
+    { "id": "uw", "type": "backend", "label": "UpdateChain", "pos": [360, 190], "size": [150, 50] },
+    { "id": "base", "type": "database", "label": "BaseMapper", "pos": [640, 150], "size": [150, 60] }
+  ],
+  "boundaries": [
+    { "kind": "region", "label": "extension conditions", "wraps": ["abs", "qw", "lw", "uw"] }
+  ],
+  "connections": [
+    { "id": "c1", "from": "abs", "to": "qw", "label": "继承", "variant": "default" },
+    { "id": "c2", "from": "abs", "to": "lw", "label": "继承", "variant": "default" },
+    { "id": "c3", "from": "abs", "to": "uw", "label": "继承", "variant": "default" },
+    { "id": "c4", "from": "qw", "to": "base", "label": "终态执行", "variant": "emphasis" },
+    { "id": "c5", "from": "lw", "to": "base", "label": "终态执行", "variant": "dashed" }
+  ],
+  "cards": [
+    { "dot": "emerald", "title": "主路径", "items": ["链式收集条件", "终态方法", "委托Mapper执行"] }
+  ]
+}

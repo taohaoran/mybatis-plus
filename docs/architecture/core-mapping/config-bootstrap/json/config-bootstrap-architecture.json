@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": { "title": "配置引导架构图", "quality_profile": "showcase", "locale": "zh-CN", "viewBox": [900, 660] },
+  "components": [
+    { "id": "user", "type": "external", "label": "用户/Starter", "pos": [380, 50], "size": [240, 56] },
+    { "id": "builder", "type": "backend", "label": "SqlSessionFactoryBuilder", "pos": [380, 180], "size": [240, 56] },
+    { "id": "gc", "type": "backend", "label": "GlobalConfig", "pos": [380, 310], "size": [240, 56] },
+    { "id": "comps", "type": "backend", "label": "可插拔组件", "pos": [380, 440], "size": [240, 56] },
+    { "id": "runtime", "type": "external", "label": "运行期各叶子", "pos": [380, 570], "size": [240, 56] }
+  ],
+  "connections": [
+    { "id": "c1", "from": "user", "to": "builder", "label": "build", "variant": "emphasis", "labelDy": 22 },
+    { "id": "c2", "from": "builder", "to": "gc", "label": "装配", "variant": "default", "labelDy": 22 },
+    { "id": "c3", "from": "gc", "to": "comps", "label": "持有", "variant": "default", "labelDy": 22 },
+    { "id": "c4", "from": "comps", "to": "runtime", "label": "提供", "variant": "emphasis", "labelDy": 22 }
+  ],
+  "cards": [
+    { "dot": "emerald", "title": "要点", "items": ["全局配置容器", "SPI可插拔", "启动期装配"] }
+  ]
+}

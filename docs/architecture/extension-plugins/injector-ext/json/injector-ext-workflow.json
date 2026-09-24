@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "diagram_type": "sequence",
+  "meta": {
+    "title": "方法注入启动时序",
+    "quality_profile": "showcase",
+    "locale": "zh-CN",
+    "viewBox": [
+      1080,
+      720
+    ]
+  },
+  "participants": [
+    {
+      "id": "cfg",
+      "type": "external",
+      "label": "Configuration"
+    },
+    {
+      "id": "inj",
+      "type": "backend",
+      "label": "SqlInjector"
+    },
+    {
+      "id": "mth",
+      "type": "backend",
+      "label": "抽象方法"
+    },
+    {
+      "id": "ms",
+      "type": "database",
+      "label": "MappedStmt"
+    }
+  ],
+  "messages": [
+    {
+      "id": "m1",
+      "from": "cfg",
+      "to": "inj",
+      "y": 170,
+      "label": "initMapperMethods",
+      "variant": "emphasis"
+    },
+    {
+      "id": "m2",
+      "from": "inj",
+      "to": "mth",
+      "y": 250,
+      "label": "inspectInject(clazz)",
+      "variant": "default"
+    },
+    {
+      "id": "m4",
+      "from": "mth",
+      "to": "cfg",
+      "y": 330,
+      "label": "addMappedStatement",
+      "variant": "emphasis"
+    },
+    {
+      "id": "m5",
+      "from": "cfg",
+      "to": "ms",
+      "y": 410,
+      "label": "注册SQL",
+      "variant": "return"
+    }
+  ]
+}

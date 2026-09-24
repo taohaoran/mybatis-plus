@@ -1,0 +1,36 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "Spring Boot 启动装配流程",
+    "quality_profile": "standard",
+    "locale": "zh-CN"
+  },
+  "lanes": [
+    { "id": "boot", "label": "Spring Boot" },
+    { "id": "autoconfig", "label": "自动配置" },
+    { "id": "factory", "label": "工厂构建" },
+    { "id": "mapper", "label": "Mapper 装配" }
+  ],
+  "nodes": [
+    { "id": "s", "type": "frontend", "label": "Boot 启动", "lane": "boot", "col": 0, "width": 120 },
+    { "id": "a1", "type": "backend", "label": "自动配置加载", "lane": "autoconfig", "col": 1, "width": 120 },
+    { "id": "a2", "type": "backend", "label": "属性绑定", "lane": "autoconfig", "col": 2, "width": 120 },
+    { "id": "a3", "type": "backend", "label": "FactoryBean 构建", "lane": "factory", "col": 3, "width": 130 },
+    { "id": "a4", "type": "backend", "label": "全局配置初始化", "lane": "factory", "col": 4, "width": 130 },
+    { "id": "a5", "type": "backend", "label": "Mapper 扫描", "lane": "mapper", "col": 4, "width": 120 },
+    { "id": "a6", "type": "backend", "label": "SQL 注入", "lane": "mapper", "col": 5, "width": 120 },
+    { "id": "a7", "type": "backend", "label": "拦截器装配", "lane": "factory", "col": 5, "width": 120 },
+    { "id": "e", "type": "frontend", "label": "就绪", "lane": "boot", "col": 5, "width": 120 }
+  ],
+  "edges": [
+    { "from": "s", "to": "a1" },
+    { "from": "a1", "to": "a2" },
+    { "from": "a2", "to": "a3" },
+    { "from": "a3", "to": "a4" },
+    { "from": "a4", "to": "a5" },
+    { "from": "a5", "to": "a6" },
+    { "from": "a6", "to": "a7" },
+    { "from": "a7", "to": "e" }
+  ]
+}

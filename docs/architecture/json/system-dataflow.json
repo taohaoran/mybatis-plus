@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "diagram_type": "dataflow",
+  "meta": {
+    "title": "SQL 生成与执行数据流",
+    "quality_profile": "standard",
+    "locale": "zh-CN",
+    "viewBox": [1200, 450]
+  },
+  "stages": [
+    { "label": "实体与注解" },
+    { "label": "元数据解析" },
+    { "label": "条件与SQL构造" },
+    { "label": "拦截与改写" },
+    { "label": "执行与映射" }
+  ],
+  "nodes": [
+    { "id": "n1", "type": "frontend", "label": "实体类+注解", "stage": 0, "row": 0 },
+    { "id": "n2", "type": "backend", "label": "TableInfo 元数据", "stage": 1, "row": 0 },
+    { "id": "n3", "type": "backend", "label": "Wrapper 条件段", "stage": 2, "row": 0 },
+    { "id": "n4", "type": "backend", "label": "SqlInjector 注入", "stage": 2, "row": 1 },
+    { "id": "n5", "type": "backend", "label": "拦截器链改写", "stage": 3, "row": 0 },
+    { "id": "n6", "type": "database", "label": "数据库执行", "stage": 4, "row": 0 },
+    { "id": "n7", "type": "backend", "label": "结果映射实体", "stage": 4, "row": 1 }
+  ],
+  "flows": [
+    { "from": "n1", "to": "n2", "label": "注解扫描", "variant": "emphasis", "route": "straight" },
+    { "from": "n2", "to": "n3", "label": "表字段信息", "variant": "emphasis", "route": "straight" },
+    { "from": "n2", "to": "n4", "label": "MappedStatement", "variant": "default", "route": "vertical-channel" },
+    { "from": "n3", "to": "n5", "label": "SQL 片段", "variant": "emphasis", "route": "straight" },
+    { "from": "n4", "to": "n5", "label": "通用方法SQL", "variant": "default", "route": "vertical-channel" },
+    { "from": "n5", "to": "n6", "label": "最终SQL", "variant": "emphasis", "route": "straight" },
+    { "from": "n6", "to": "n7", "label": "ResultSet", "variant": "default", "route": "vertical-channel" }
+  ]
+}

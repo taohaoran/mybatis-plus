@@ -1,0 +1,82 @@
+{
+  "schema_version": 1,
+  "diagram_type": "sequence",
+  "meta": {
+    "title": "解析缓存时序",
+    "quality_profile": "showcase",
+    "locale": "zh-CN",
+    "viewBox": [
+      1080,
+      680
+    ]
+  },
+  "participants": [
+    {
+      "id": "inter",
+      "type": "external",
+      "label": "拦截器"
+    },
+    {
+      "id": "glob",
+      "type": "backend",
+      "label": "全局门面"
+    },
+    {
+      "id": "cache",
+      "type": "backend",
+      "label": "缓存"
+    },
+    {
+      "id": "pool",
+      "type": "backend",
+      "label": "线程池"
+    },
+    {
+      "id": "db",
+      "type": "database",
+      "label": "AST"
+    }
+  ],
+  "messages": [
+    {
+      "id": "m1",
+      "from": "inter",
+      "to": "glob",
+      "y": 170,
+      "label": "parse(sql)",
+      "variant": "emphasis"
+    },
+    {
+      "id": "m2",
+      "from": "glob",
+      "to": "cache",
+      "y": 250,
+      "label": "查缓存",
+      "variant": "default"
+    },
+    {
+      "id": "m3",
+      "from": "cache",
+      "to": "pool",
+      "y": 330,
+      "label": "未命中",
+      "variant": "default"
+    },
+    {
+      "id": "m4",
+      "from": "pool",
+      "to": "db",
+      "y": 410,
+      "label": "解析",
+      "variant": "emphasis"
+    },
+    {
+      "id": "m5",
+      "from": "db",
+      "to": "inter",
+      "y": 490,
+      "label": "AST",
+      "variant": "return"
+    }
+  ]
+}

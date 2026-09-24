@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "diagram_type": "sequence",
+  "meta": { "title": "AutoGenerator 编排时序", "quality_profile": "showcase", "locale": "zh-CN", "viewBox": [1100, 720], "column_fit": "spread" },
+  "participants": [
+    { "id": "u", "type": "external", "label": "用户" },
+    { "id": "f", "type": "backend", "label": "快速入口" },
+    { "id": "a", "type": "backend", "label": "编排器" },
+    { "id": "c", "type": "backend", "label": "配置汇总" },
+    { "id": "q", "type": "backend", "label": "元数据查询" },
+    { "id": "e", "type": "backend", "label": "模板引擎" }
+  ],
+  "messages": [
+    { "id": "m1", "from": "u", "to": "f", "y": 160, "label": "create(url,pwd).execute()", "variant": "emphasis" },
+    { "id": "m2", "from": "f", "to": "a", "y": 220, "label": "build 六类配置" },
+    { "id": "m3", "from": "a", "to": "c", "y": 280, "label": "new ConfigBuilder", "variant": "emphasis" },
+    { "id": "m4", "from": "a", "to": "e", "y": 340, "label": "init(config)", "variant": "emphasis" },
+    { "id": "m5", "from": "e", "to": "c", "y": 400, "label": "getTableInfoList()" },
+    { "id": "m6", "from": "c", "to": "q", "y": 460, "label": "queryTables()" },
+    { "id": "m7", "from": "q", "to": "c", "y": 520, "label": "List<TableInfo>", "variant": "return" },
+    { "id": "m8", "from": "a", "to": "u", "y": 600, "label": "生成完成", "variant": "return" }
+  ]
+}

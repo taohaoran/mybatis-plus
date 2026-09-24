@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "diagram_type": "sequence",
+  "meta": { "title": "Db静态调用时序", "quality_profile": "showcase", "locale": "zh-CN", "viewBox": [1080, 720] },
+  "participants": [
+    { "id": "u", "type": "external", "label": "业务代码" },
+    { "id": "db", "type": "backend", "label": "Db" },
+    { "id": "h", "type": "backend", "label": "SqlHelper" },
+    { "id": "s", "type": "backend", "label": "SqlSession" },
+    { "id": "m", "type": "database", "label": "Mapper" }
+  ],
+  "messages": [
+    { "id": "m1", "from": "u", "to": "db", "y": 170, "label": "Db.getById(id,cls)", "variant": "emphasis" },
+    { "id": "m2", "from": "db", "to": "h", "y": 250, "label": "execute(cls,fn)", "variant": "default" },
+    { "id": "m3", "from": "h", "to": "s", "y": 330, "label": "openSession", "variant": "default" },
+    { "id": "m4", "from": "h", "to": "m", "y": 410, "label": "getMapper+selectById", "variant": "emphasis" },
+    { "id": "m5", "from": "m", "to": "h", "y": 490, "label": "实体", "variant": "return" },
+    { "id": "m6", "from": "h", "to": "s", "y": 570, "label": "closeSession", "variant": "default" }
+  ]
+}

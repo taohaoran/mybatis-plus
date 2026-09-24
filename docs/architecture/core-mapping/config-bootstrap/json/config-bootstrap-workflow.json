@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "diagram_type": "dataflow",
+  "meta": { "title": "启动装配数据流", "quality_profile": "showcase", "locale": "zh-CN" },
+  "stages": [ { "label": "触发" }, { "label": "解析" }, { "label": "装配" }, { "label": "就绪" } ],
+  "nodes": [
+    { "id": "n1", "type": "external", "label": "build 会话工厂", "stage": 0, "row": 0 },
+    { "id": "n2", "type": "backend", "label": "解析 XML", "stage": 1, "row": 0 },
+    { "id": "n3", "type": "backend", "label": "装配 GlobalConfig", "stage": 2, "row": 0 },
+    { "id": "n4", "type": "database", "label": "注入内置CRUD", "stage": 3, "row": 0 }
+  ],
+  "flows": [
+    { "from": "n1", "to": "n2", "label": "启动", "variant": "emphasis", "route": "straight" },
+    { "from": "n2", "to": "n3", "label": "配置", "variant": "default", "route": "straight" },
+    { "from": "n3", "to": "n4", "label": "注入", "variant": "emphasis", "route": "straight" }
+  ]
+}

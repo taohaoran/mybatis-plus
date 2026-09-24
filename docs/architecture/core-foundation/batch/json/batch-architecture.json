@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": { "title": "批量执行架构图", "quality_profile": "showcase", "locale": "zh-CN", "viewBox": [900, 720] },
+  "components": [
+    { "id": "caller", "type": "external", "label": "业务代码", "pos": [400, 40], "size": [200, 56] },
+    { "id": "utils", "type": "backend", "label": "MybatisBatchUtils", "pos": [400, 170], "size": [200, 52] },
+    { "id": "batch", "type": "backend", "label": "MybatisBatch", "pos": [400, 300], "size": [200, 52], "tag": "分批攒批" },
+    { "id": "session", "type": "backend", "label": "BATCH SqlSession", "pos": [400, 430], "size": [200, 52] },
+    { "id": "jdbc", "type": "external", "label": "JDBC batch", "pos": [400, 560], "size": [200, 56] }
+  ],
+  "connections": [
+    { "id": "c1", "from": "caller", "to": "utils", "label": "execute", "variant": "emphasis", "labelDy": 22 },
+    { "id": "c2", "from": "utils", "to": "batch", "label": "委托", "variant": "default", "labelDy": 22 },
+    { "id": "c3", "from": "batch", "to": "session", "label": "update 攒批", "variant": "default", "labelDy": 22 },
+    { "id": "c4", "from": "session", "to": "jdbc", "label": "flush 下推", "variant": "emphasis", "labelDy": 22 }
+  ],
+  "cards": [
+    { "dot": "emerald", "title": "要点", "items": ["复用 BATCH 模式", "按 batchSize 切片", "flush 才下推"] }
+  ]
+}

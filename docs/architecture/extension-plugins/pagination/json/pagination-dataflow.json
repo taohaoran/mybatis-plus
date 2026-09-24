@@ -1,0 +1,80 @@
+{
+  "schema_version": 1,
+  "diagram_type": "dataflow",
+  "meta": {
+    "title": "分页SQL组装数据流",
+    "quality_profile": "showcase",
+    "locale": "zh-CN",
+    "viewBox": [
+      1120,
+      400
+    ]
+  },
+  "stages": [
+    {
+      "label": "原始SQL"
+    },
+    {
+      "label": "选方言"
+    },
+    {
+      "label": "拼LIMIT"
+    },
+    {
+      "label": "BoundSql"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "n1",
+      "type": "frontend",
+      "label": "原始SQL",
+      "stage": 0,
+      "row": 0
+    },
+    {
+      "id": "n2",
+      "type": "backend",
+      "label": "DialectFactory",
+      "stage": 1,
+      "row": 0
+    },
+    {
+      "id": "n3",
+      "type": "backend",
+      "label": "IDialect",
+      "stage": 2,
+      "row": 0
+    },
+    {
+      "id": "n4",
+      "type": "database",
+      "label": "BoundSql",
+      "stage": 3,
+      "row": 0
+    }
+  ],
+  "flows": [
+    {
+      "from": "n1",
+      "to": "n2",
+      "label": "SQL",
+      "variant": "emphasis",
+      "route": "straight"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "label": "方言",
+      "variant": "default",
+      "route": "straight"
+    },
+    {
+      "from": "n3",
+      "to": "n4",
+      "label": "分页SQL",
+      "variant": "emphasis",
+      "route": "straight"
+    }
+  ]
+}

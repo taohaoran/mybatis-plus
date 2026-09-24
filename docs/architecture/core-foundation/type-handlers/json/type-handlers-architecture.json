@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": { "title": "类型处理器架构图", "quality_profile": "showcase", "locale": "zh-CN", "viewBox": [900, 640] },
+  "components": [
+    { "id": "caller", "type": "external", "label": "参数处理器", "pos": [350, 40], "size": [200, 56] },
+    { "id": "metaobj", "type": "backend", "label": "MetaObjectHandler", "pos": [350, 180], "size": [200, 52], "tag": "填充SPI" },
+    { "id": "enumh", "type": "backend", "label": "枚举/JSON TypeHandler", "pos": [350, 320], "size": [200, 52] },
+    { "id": "jdbc", "type": "external", "label": "JDBC 驱动", "pos": [350, 460], "size": [200, 56] }
+  ],
+  "connections": [
+    { "id": "c1", "from": "caller", "to": "metaobj", "label": "insertFill", "variant": "emphasis", "labelDy": 22 },
+    { "id": "c2", "from": "metaobj", "to": "enumh", "label": "填充后转换", "variant": "default", "labelDy": 22 },
+    { "id": "c3", "from": "enumh", "to": "jdbc", "label": "setObject", "variant": "emphasis", "labelDy": 22 }
+  ],
+  "cards": [
+    { "dot": "emerald", "title": "要点", "items": ["填充 SPI 可插拔", "枚举自动路由", "有值不覆盖"] }
+  ]
+}

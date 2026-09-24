@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": { "title": "注解契约架构图", "quality_profile": "showcase", "locale": "zh-CN", "viewBox": [1000, 760] },
+  "components": [
+    { "id": "user-entity", "type": "external", "label": "用户实体类", "pos": [545, 40], "size": [200, 56] },
+    { "id": "tablename", "type": "backend", "label": "@TableName", "pos": [180, 220], "size": [130, 52] },
+    { "id": "tableid", "type": "backend", "label": "@TableId", "pos": [380, 220], "size": [130, 52] },
+    { "id": "tablefield", "type": "backend", "label": "@TableField", "pos": [580, 220], "size": [130, 52], "tag": "字段汇聚" },
+    { "id": "tablelogic", "type": "backend", "label": "@TableLogic", "pos": [780, 220], "size": [130, 52] },
+    { "id": "idtype", "type": "database", "label": "IdType", "pos": [380, 420], "size": [130, 52] },
+    { "id": "fieldstrategy", "type": "database", "label": "FieldStrategy", "pos": [580, 420], "size": [130, 52] },
+    { "id": "fieldfill", "type": "database", "label": "FieldFill", "pos": [780, 420], "size": [130, 52] },
+    { "id": "consumer", "type": "backend", "label": "TableInfoHelper", "pos": [545, 620], "size": [200, 60], "tag": "core 反射消费" }
+  ],
+  "boundaries": [
+    { "kind": "region", "label": "注解契约模块（mybatis-plus-annotation）", "wraps": ["tablename", "tableid", "tablefield", "tablelogic", "idtype", "fieldstrategy", "fieldfill"] }
+  ],
+  "connections": [
+    { "id": "c1", "from": "user-entity", "to": "tablefield", "label": "标注字段", "variant": "emphasis", "labelDy": 30 },
+    { "id": "c2", "from": "tableid", "to": "idtype", "label": "主键策略", "variant": "default", "labelDy": 30 },
+    { "id": "c3", "from": "tablefield", "to": "fieldstrategy", "label": "三种策略", "variant": "default", "labelDy": 30 },
+    { "id": "c4", "from": "fieldstrategy", "to": "consumer", "label": "构建元数据", "variant": "emphasis", "labelDy": 30 }
+  ],
+  "cards": [
+    { "dot": "emerald", "title": "要点", "items": ["最底层契约模块", "纯声明无运行逻辑", "被 core 反射消费"] }
+  ]
+}

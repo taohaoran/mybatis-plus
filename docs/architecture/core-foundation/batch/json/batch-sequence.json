@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "diagram_type": "sequence",
+  "meta": { "title": "批量提交会话时序", "quality_profile": "showcase", "locale": "zh-CN", "viewBox": [1000, 760], "column_fit": "spread" },
+  "participants": [
+    { "id": "biz", "type": "external", "label": "业务代码" },
+    { "id": "mb", "type": "backend", "label": "MybatisBatch" },
+    { "id": "ss", "type": "backend", "label": "BATCH会话" },
+    { "id": "jdbc", "type": "external", "label": "JDBC" }
+  ],
+  "messages": [
+    { "id": "m1", "from": "biz", "to": "mb", "y": 180, "label": "execute(method.insert())", "variant": "emphasis" },
+    { "id": "m2", "from": "mb", "to": "ss", "y": 250, "label": "openSession(BATCH)", "variant": "default" },
+    { "id": "m3", "from": "mb", "to": "ss", "y": 320, "label": "按batchSize切片", "variant": "default" },
+    { "id": "m4", "from": "mb", "to": "ss", "y": 390, "label": "循环 update 攒批", "variant": "default" },
+    { "id": "m5", "from": "mb", "to": "ss", "y": 460, "label": "flushStatements", "variant": "emphasis" },
+    { "id": "m6", "from": "ss", "to": "jdbc", "y": 520, "label": "下推 batch SQL", "variant": "default" },
+    { "id": "m7", "from": "mb", "to": "ss", "y": 580, "label": "commit", "variant": "default" },
+    { "id": "m8", "from": "mb", "to": "biz", "y": 650, "label": "List<BatchResult>", "variant": "return" }
+  ]
+}

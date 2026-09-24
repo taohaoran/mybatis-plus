@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "diagram_type": "sequence",
+  "meta": { "title": "拦截器链调用时序", "quality_profile": "showcase", "locale": "zh-CN", "viewBox": [1080, 760] },
+  "participants": [
+    { "id": "exe", "type": "external", "label": "Executor" },
+    { "id": "chain", "type": "backend", "label": "插件链" },
+    { "id": "opt", "type": "backend", "label": "乐观锁" },
+    { "id": "dnt", "type": "backend", "label": "动态表名" },
+    { "id": "db", "type": "database", "label": "数据库" }
+  ],
+  "messages": [
+    { "id": "m1", "from": "exe", "to": "chain", "y": 170, "label": "query/update被代理", "variant": "emphasis" },
+    { "id": "m2", "from": "chain", "to": "opt", "y": 250, "label": "beforeUpdate", "variant": "default" },
+    { "id": "m3", "from": "opt", "to": "chain", "y": 310, "label": "旧值入where", "variant": "return" },
+    { "id": "m4", "from": "chain", "to": "dnt", "y": 380, "label": "beforeQuery改表名", "variant": "default" },
+    { "id": "m5", "from": "dnt", "to": "chain", "y": 440, "label": "改写SQL", "variant": "return" },
+    { "id": "m6", "from": "chain", "to": "exe", "y": 510, "label": "重建CacheKey", "variant": "default" },
+    { "id": "m7", "from": "exe", "to": "db", "y": 580, "label": "执行改写SQL", "variant": "emphasis" },
+    { "id": "m8", "from": "db", "to": "exe", "y": 650, "label": "结果集", "variant": "return" }
+  ]
+}

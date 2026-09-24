@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": { "title": "AOT与测试配置架构图", "quality_profile": "showcase", "locale": "zh-CN" },
+  "components": [
+    { "id": "graal", "type": "external", "label": "原生构建/测试", "pos": [60, 180], "size": [150, 60] },
+    { "id": "reg", "type": "backend", "label": "提示登记器", "pos": [380, 180], "size": [160, 60], "tag": "AOT" },
+    { "id": "hint", "type": "database", "label": "反射提示元数据", "pos": [700, 180], "size": [170, 60] }
+  ],
+  "boundaries": [
+    { "kind": "region", "label": "native-image / test-autoconfigure", "wraps": ["reg"] }
+  ],
+  "connections": [
+    { "id": "c1", "from": "graal", "to": "reg", "variant": "emphasis" },
+    { "id": "c2", "from": "reg", "to": "hint", "variant": "emphasis" }
+  ],
+  "cards": [
+    { "dot": "emerald", "title": "要点", "items": ["构建期登记反射提示", "MapperFactoryBean 条件生效", "测试切片独立装配"] }
+  ]
+}

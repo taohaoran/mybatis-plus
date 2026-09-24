@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "diagram_type": "dataflow",
+  "meta": { "title": "SQL 模板渲染数据流", "quality_profile": "showcase", "locale": "zh-CN" },
+  "stages": [ { "label": "定义" }, { "label": "填充" }, { "label": "生成" }, { "label": "注册" } ],
+  "nodes": [
+    { "id": "n1", "type": "backend", "label": "SqlMethod 枚举", "stage": 0, "row": 0 },
+    { "id": "n2", "type": "backend", "label": "占位符 a-f", "stage": 1, "row": 0 },
+    { "id": "n3", "type": "backend", "label": "拼 SQL 脚本", "stage": 2, "row": 0 },
+    { "id": "n4", "type": "database", "label": "MappedStatement", "stage": 3, "row": 0 }
+  ],
+  "flows": [
+    { "from": "n1", "to": "n2", "label": "模板", "variant": "emphasis", "route": "straight" },
+    { "from": "n2", "to": "n3", "label": "format", "variant": "default", "route": "straight" },
+    { "from": "n3", "to": "n4", "label": "注入", "variant": "emphasis", "route": "straight" }
+  ]
+}

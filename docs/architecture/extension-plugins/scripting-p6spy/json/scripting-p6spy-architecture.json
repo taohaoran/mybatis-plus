@@ -1,0 +1,136 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "scripting-p6spy架构图",
+    "quality_profile": "showcase",
+    "locale": "zh-CN",
+    "viewBox": [
+      900,
+      440
+    ]
+  },
+  "components": [
+    {
+      "id": "driver",
+      "type": "backend",
+      "label": "模板语言驱动",
+      "pos": [
+        80,
+        60
+      ],
+      "size": [
+        160,
+        60
+      ],
+      "tag": "Velocity/FTL/Thyme"
+    },
+    {
+      "id": "ph",
+      "type": "backend",
+      "label": "p6spy工厂",
+      "pos": [
+        380,
+        60
+      ],
+      "size": [
+        150,
+        60
+      ],
+      "tag": "P6Factory"
+    },
+    {
+      "id": "event",
+      "type": "backend",
+      "label": "事件监听",
+      "pos": [
+        640,
+        30
+      ],
+      "size": [
+        160,
+        50
+      ],
+      "tag": "JdbcEventListener"
+    },
+    {
+      "id": "fmt",
+      "type": "backend",
+      "label": "SQL格式化",
+      "pos": [
+        640,
+        150
+      ],
+      "size": [
+        160,
+        50
+      ],
+      "tag": "P6SpyLogger"
+    },
+    {
+      "id": "log",
+      "type": "external",
+      "label": "日志输出",
+      "pos": [
+        380,
+        220
+      ],
+      "size": [
+        150,
+        60
+      ]
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "extension scripting/p6spy",
+      "wraps": [
+        "driver",
+        "ph",
+        "event",
+        "fmt"
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "c1",
+      "from": "ph",
+      "to": "event",
+      "label": "注册",
+      "variant": "default"
+    },
+    {
+      "id": "c2",
+      "from": "event",
+      "to": "fmt",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c3",
+      "from": "fmt",
+      "to": "log",
+      "label": "打印",
+      "variant": "default"
+    },
+    {
+      "id": "c4",
+      "from": "driver",
+      "to": "ph",
+      "label": "参数处理",
+      "variant": "dashed"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "emerald",
+      "title": "主路径",
+      "items": [
+        "p6spy代理SQL",
+        "事件回调",
+        "格式化后输出"
+      ]
+    }
+  ]
+}

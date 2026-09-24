@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "diagram_type": "dataflow",
+  "meta": { "title": "生成域数据流", "quality_profile": "showcase", "locale": "zh-CN" },
+  "stages": [ { "label": "配置" }, { "label": "采集" }, { "label": "渲染" }, { "label": "输出" } ],
+  "nodes": [
+    { "id": "cfg", "type": "backend", "label": "六类配置", "stage": 0, "row": 1 },
+    { "id": "db", "type": "database", "label": "数据库元数据", "stage": 1, "row": 1 },
+    { "id": "tpl", "type": "backend", "label": "模板上下文", "stage": 2, "row": 1 },
+    { "id": "file", "type": "database", "label": "代码文件", "stage": 3, "row": 1 }
+  ],
+  "flows": [
+    { "from": "cfg", "to": "db", "label": "驱动查询", "variant": "emphasis", "route": "straight" },
+    { "from": "db", "to": "tpl", "label": "TableInfo", "variant": "emphasis", "route": "straight" },
+    { "from": "tpl", "to": "file", "label": "merge 落盘", "variant": "emphasis", "route": "straight" }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": { "title": "Boot自动配置架构图", "quality_profile": "showcase", "locale": "zh-CN" },
+  "components": [
+    { "id": "boot", "type": "external", "label": "Spring Boot", "pos": [60, 180], "size": [130, 56] },
+    { "id": "ac", "type": "backend", "label": "自动配置类", "pos": [330, 90], "size": [150, 60], "tag": "条件装配" },
+    { "id": "props", "type": "backend", "label": "MybatisPlus属性", "pos": [330, 230], "size": [150, 52] },
+    { "id": "cust", "type": "external", "label": "定制器SPI", "pos": [500, 330], "size": [150, 52] },
+    { "id": "fb", "type": "backend", "label": "工厂Bean", "pos": [610, 90], "size": [140, 52] },
+    { "id": "inter", "type": "backend", "label": "拦截器装配", "pos": [610, 200], "size": [140, 52] },
+    { "id": "sql", "type": "database", "label": "SqlSessionFactory", "pos": [860, 130], "size": [150, 56] }
+  ],
+  "boundaries": [
+    { "kind": "region", "label": "autoconfigure 模块", "wraps": ["ac", "props", "cust"] }
+  ],
+  "connections": [
+    { "id": "c1", "from": "boot", "to": "ac", "variant": "emphasis" },
+    { "id": "c2", "from": "props", "to": "ac" },
+    { "id": "c3", "from": "cust", "to": "ac", "variant": "dashed" },
+    { "id": "c4", "from": "ac", "to": "fb", "variant": "emphasis" },
+    { "id": "c5", "from": "ac", "to": "inter" },
+    { "id": "c6", "from": "fb", "to": "sql", "variant": "emphasis" }
+  ],
+  "cards": [
+    { "dot": "emerald", "title": "要点", "items": ["条件装配SqlSessionFactory", "三套starter对齐版本", "定制器可扩展"] }
+  ]
+}

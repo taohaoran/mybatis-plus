@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "diagram_type": "sequence",
+  "meta": { "title": "生成域全流程时序", "quality_profile": "showcase", "locale": "zh-CN", "viewBox": [1100, 640], "column_fit": "spread" },
+  "participants": [
+    { "id": "u", "type": "external", "label": "用户" },
+    { "id": "core", "type": "backend", "label": "编排入口" },
+    { "id": "cfg", "type": "backend", "label": "配置体系" },
+    { "id": "qry", "type": "backend", "label": "元数据查询" },
+    { "id": "eng", "type": "backend", "label": "模板引擎" }
+  ],
+  "messages": [
+    { "id": "m1", "from": "u", "to": "core", "y": 160, "label": "execute()", "variant": "emphasis" },
+    { "id": "m2", "from": "core", "to": "cfg", "y": 220, "label": "汇总配置" },
+    { "id": "m3", "from": "cfg", "to": "qry", "y": 280, "label": "queryTables()" },
+    { "id": "m4", "from": "qry", "to": "eng", "y": 350, "label": "List<TableInfo>", "variant": "return" },
+    { "id": "m5", "from": "eng", "to": "u", "y": 440, "label": "逐表渲染落盘", "variant": "emphasis" },
+    { "id": "m6", "from": "core", "to": "u", "y": 520, "label": "生成完成", "variant": "return" }
+  ]
+}

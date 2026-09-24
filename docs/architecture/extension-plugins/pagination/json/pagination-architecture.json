@@ -1,0 +1,138 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "分页模型架构图",
+    "quality_profile": "showcase",
+    "locale": "zh-CN",
+    "viewBox": [
+      900,
+      460
+    ]
+  },
+  "components": [
+    {
+      "id": "page",
+      "type": "frontend",
+      "label": "Page分页模型",
+      "pos": [
+        80,
+        60
+      ],
+      "size": [
+        150,
+        60
+      ],
+      "tag": "records/total/size"
+    },
+    {
+      "id": "factory",
+      "type": "backend",
+      "label": "方言工厂",
+      "pos": [
+        360,
+        60
+      ],
+      "size": [
+        150,
+        60
+      ],
+      "tag": "DialectFactory"
+    },
+    {
+      "id": "dialect",
+      "type": "backend",
+      "label": "方言实现",
+      "pos": [
+        640,
+        40
+      ],
+      "size": [
+        160,
+        90
+      ],
+      "tag": "14种IDialect"
+    },
+    {
+      "id": "model",
+      "type": "backend",
+      "label": "参数装配",
+      "pos": [
+        360,
+        220
+      ],
+      "size": [
+        150,
+        60
+      ],
+      "tag": "DialectModel"
+    },
+    {
+      "id": "ipage",
+      "type": "external",
+      "label": "IPage契约",
+      "pos": [
+        80,
+        220
+      ],
+      "size": [
+        150,
+        60
+      ],
+      "tag": "core"
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "extension pagination 包",
+      "wraps": [
+        "page",
+        "factory",
+        "dialect",
+        "model"
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "c1",
+      "from": "ipage",
+      "to": "page",
+      "label": "实现",
+      "variant": "default"
+    },
+    {
+      "id": "c2",
+      "from": "page",
+      "to": "factory",
+      "label": "选方言",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c3",
+      "from": "factory",
+      "to": "dialect",
+      "label": "路由",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c4",
+      "from": "dialect",
+      "to": "model",
+      "label": "分页SQL",
+      "variant": "default"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "emerald",
+      "title": "主路径",
+      "items": [
+        "Page入参",
+        "工厂选方言",
+        "拼装LIMIT并注入参数"
+      ]
+    }
+  ]
+}

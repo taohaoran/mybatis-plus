@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": { "title": "Mapper 运行时架构图", "quality_profile": "showcase", "locale": "zh-CN", "viewBox": [900, 680] },
+  "components": [
+    { "id": "biz", "type": "external", "label": "业务/Mapper 接口", "pos": [380, 50], "size": [240, 56] },
+    { "id": "proxy", "type": "backend", "label": "MybatisMapperProxy", "pos": [380, 180], "size": [240, 56] },
+    { "id": "param", "type": "backend", "label": "MybatisParameterHandler", "pos": [380, 310], "size": [240, 56] },
+    { "id": "fill", "type": "backend", "label": "MetaObjectHandler", "pos": [380, 440], "size": [240, 56] },
+    { "id": "myb", "type": "external", "label": "MyBatis 执行", "pos": [380, 570], "size": [240, 56] }
+  ],
+  "connections": [
+    { "id": "c1", "from": "biz", "to": "proxy", "label": "调用", "variant": "emphasis", "labelDy": 22 },
+    { "id": "c2", "from": "proxy", "to": "param", "label": "执行", "variant": "default", "labelDy": 22 },
+    { "id": "c3", "from": "param", "to": "fill", "label": "insert/updateFill", "variant": "default", "labelDy": 22 },
+    { "id": "c4", "from": "fill", "to": "myb", "label": "SQL执行", "variant": "emphasis", "labelDy": 22 }
+  ],
+  "cards": [
+    { "dot": "emerald", "title": "要点", "items": ["动态代理分发", "参数期自动填充", "覆盖MyBatis钩子"] }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "mybatis-plus 系统架构图",
+    "quality_profile": "standard",
+    "locale": "zh-CN"
+  },
+  "components": [
+    { "id": "annotation", "type": "backend", "label": "annotation 注解契约", "pos": [40, 130], "size": [150, 55], "tag": "16 注解" },
+    { "id": "core", "type": "backend", "label": "core 核心增强", "pos": [240, 130], "size": [150, 55], "tag": "170 文件" },
+    { "id": "extension", "type": "backend", "label": "extension 扩展插件", "pos": [440, 130], "size": [150, 55], "tag": "93+5Kotlin" },
+    { "id": "spring", "type": "backend", "label": "spring 集成", "pos": [640, 130], "size": [140, 55], "tag": "IService" },
+    { "id": "generator", "type": "backend", "label": "generator 代码生成", "pos": [830, 130], "size": [140, 55], "tag": "AutoGenerator" },
+    { "id": "jsqlparser", "type": "backend", "label": "jsqlparser SQL解析", "pos": [440, 260], "size": [150, 50], "tag": "可选独立链路" },
+    { "id": "boot", "type": "frontend", "label": "boot-starter 启动器", "pos": [640, 260], "size": [140, 50], "tag": "Boot2/3/4+AOT" },
+    { "id": "db", "type": "database", "label": "关系型数据库", "pos": [830, 260], "size": [140, 50], "tag": "MySQL/PG/Oracle" }
+  ],
+  "boundaries": [
+    { "kind": "region", "label": "mybatis-plus 本仓库模块", "wraps": ["annotation", "core", "extension", "spring", "generator", "jsqlparser", "boot"] }
+  ],
+  "connections": [
+    { "id": "c1", "from": "annotation", "to": "core", "label": "api 依赖", "variant": "emphasis" },
+    { "id": "c2", "from": "core", "to": "extension", "label": "api 依赖", "variant": "emphasis" },
+    { "id": "c3", "from": "extension", "to": "spring", "label": "api 依赖", "variant": "emphasis" },
+    { "id": "c4", "from": "spring", "to": "generator", "label": "依赖", "variant": "default" },
+    { "id": "c6", "from": "extension", "to": "jsqlparser", "label": "插件接口", "variant": "dashed", "labelDy": 24 },
+    { "id": "c7", "from": "spring", "to": "boot", "label": "自动装配", "variant": "emphasis", "labelDy": 24 },
+    { "id": "c8", "from": "generator", "to": "db", "label": "JDBC 元数据", "variant": "dashed", "labelDy": 24 }
+  ],
+  "cards": [
+    { "dot": "emerald", "title": "核心设计", "items": ["只做增强不做改变，基于 MyBatis 3.5.19", "annotation→core→extension→spring 单向依赖", "jsqlparser 为可选独立链路"] }
+  ]
+}

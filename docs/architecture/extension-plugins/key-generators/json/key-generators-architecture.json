@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": { "title": "序列键生成架构图", "quality_profile": "showcase", "locale": "zh-CN", "viewBox": [900, 420] },
+  "components": [
+    { "id": "spi", "type": "external", "label": "IKeyGenerator", "pos": [80, 150], "size": [150, 60], "tag": "core SPI" },
+    { "id": "ora", "type": "backend", "label": "Oracle", "pos": [360, 30], "size": [140, 45] },
+    { "id": "pg", "type": "backend", "label": "Postgre", "pos": [360, 85], "size": [140, 45] },
+    { "id": "db2", "type": "backend", "label": "DB2", "pos": [360, 140], "size": [140, 45] },
+    { "id": "oth", "type": "backend", "label": "其余6种", "pos": [360, 195], "size": [140, 45] },
+    { "id": "db", "type": "database", "label": "序列对象", "pos": [640, 150], "size": [150, 60] }
+  ],
+  "boundaries": [
+    { "kind": "region", "label": "extension incrementer", "wraps": ["ora", "pg", "db2", "oth"] }
+  ],
+  "connections": [
+    { "id": "c1", "from": "spi", "to": "ora", "label": "实现", "variant": "default" },
+    { "id": "c2", "from": "spi", "to": "pg", "label": "实现", "variant": "default" },
+    { "id": "c3", "from": "spi", "to": "db2", "label": "实现", "variant": "default" },
+    { "id": "c4", "from": "spi", "to": "oth", "label": "实现", "variant": "default" },
+    { "id": "c5", "from": "ora", "to": "db", "label": "nextval", "variant": "emphasis" }
+  ],
+  "cards": [
+    { "dot": "emerald", "title": "主路径", "items": ["按DbType选实现", "生成nextval SQL", "取回主键值"] }
+  ]
+}

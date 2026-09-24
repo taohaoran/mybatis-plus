@@ -1,0 +1,97 @@
+{
+  "schema_version": 1,
+  "diagram_type": "dataflow",
+  "meta": {
+    "title": "SQL解析缓存数据流",
+    "quality_profile": "showcase",
+    "locale": "zh-CN",
+    "viewBox": [
+      1120,
+      420
+    ]
+  },
+  "stages": [
+    {
+      "label": "SQL文本"
+    },
+    {
+      "label": "查缓存"
+    },
+    {
+      "label": "解析AST"
+    },
+    {
+      "label": "序列化"
+    },
+    {
+      "label": "Caffeine"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "n1",
+      "type": "frontend",
+      "label": "原始SQL",
+      "stage": 0,
+      "row": 0
+    },
+    {
+      "id": "n2",
+      "type": "backend",
+      "label": "getIfPresent",
+      "stage": 1,
+      "row": 0
+    },
+    {
+      "id": "n3",
+      "type": "backend",
+      "label": "线程池解析",
+      "stage": 2,
+      "row": 0
+    },
+    {
+      "id": "n4",
+      "type": "backend",
+      "label": "byte[]",
+      "stage": 3,
+      "row": 0
+    },
+    {
+      "id": "n5",
+      "type": "database",
+      "label": "缓存",
+      "stage": 4,
+      "row": 0
+    }
+  ],
+  "flows": [
+    {
+      "from": "n1",
+      "to": "n2",
+      "label": "SQL",
+      "variant": "emphasis",
+      "route": "straight"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "label": "未命中",
+      "variant": "default",
+      "route": "straight"
+    },
+    {
+      "from": "n3",
+      "to": "n4",
+      "label": "AST",
+      "variant": "default",
+      "route": "straight"
+    },
+    {
+      "from": "n4",
+      "to": "n5",
+      "label": "异步写",
+      "variant": "emphasis",
+      "route": "straight"
+    }
+  ]
+}

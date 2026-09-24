@@ -1,0 +1,211 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "extension-plugins域架构",
+    "quality_profile": "showcase",
+    "locale": "zh-CN",
+    "viewBox": [
+      1100,
+      620
+    ]
+  },
+  "components": [
+    {
+      "id": "mp",
+      "type": "external",
+      "label": "MyBatis核心",
+      "pos": [
+        60,
+        60
+      ],
+      "size": [
+        150,
+        60
+      ]
+    },
+    {
+      "id": "ic",
+      "type": "backend",
+      "label": "拦截器核心",
+      "pos": [
+        360,
+        60
+      ],
+      "size": [
+        150,
+        55
+      ]
+    },
+    {
+      "id": "pg",
+      "type": "backend",
+      "label": "分页模型",
+      "pos": [
+        360,
+        140
+      ],
+      "size": [
+        150,
+        55
+      ]
+    },
+    {
+      "id": "inj",
+      "type": "backend",
+      "label": "扩展注入",
+      "pos": [
+        360,
+        220
+      ],
+      "size": [
+        150,
+        55
+      ]
+    },
+    {
+      "id": "ddl",
+      "type": "backend",
+      "label": "DDL执行",
+      "pos": [
+        360,
+        300
+      ],
+      "size": [
+        150,
+        55
+      ]
+    },
+    {
+      "id": "ar",
+      "type": "backend",
+      "label": "AR仓储",
+      "pos": [
+        360,
+        380
+      ],
+      "size": [
+        150,
+        55
+      ]
+    },
+    {
+      "id": "jh",
+      "type": "backend",
+      "label": "JSON处理器",
+      "pos": [
+        360,
+        460
+      ],
+      "size": [
+        150,
+        55
+      ]
+    },
+    {
+      "id": "cc",
+      "type": "backend",
+      "label": "链式条件",
+      "pos": [
+        640,
+        60
+      ],
+      "size": [
+        150,
+        55
+      ]
+    },
+    {
+      "id": "db",
+      "type": "backend",
+      "label": "Db工具",
+      "pos": [
+        640,
+        140
+      ],
+      "size": [
+        150,
+        55
+      ]
+    },
+    {
+      "id": "kg",
+      "type": "backend",
+      "label": "键生成器",
+      "pos": [
+        640,
+        220
+      ],
+      "size": [
+        150,
+        55
+      ]
+    },
+    {
+      "id": "p6",
+      "type": "backend",
+      "label": "p6spy",
+      "pos": [
+        640,
+        300
+      ],
+      "size": [
+        150,
+        55
+      ]
+    },
+    {
+      "id": "dbr",
+      "type": "database",
+      "label": "数据库",
+      "pos": [
+        640,
+        460
+      ],
+      "size": [
+        150,
+        55
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "c1",
+      "from": "mp",
+      "to": "ic",
+      "label": "代理",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c2",
+      "from": "ic",
+      "to": "pg",
+      "variant": "default"
+    },
+    {
+      "id": "c3",
+      "from": "inj",
+      "to": "mp",
+      "label": "注册",
+      "variant": "dashed"
+    },
+    {
+      "id": "c4",
+      "from": "ar",
+      "to": "db",
+      "label": "CRUD",
+      "variant": "default"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "emerald",
+      "title": "域职责",
+      "items": [
+        "扩展MyBatis",
+        "拦截改写SQL",
+        "便捷CRUD工具"
+      ]
+    }
+  ]
+}

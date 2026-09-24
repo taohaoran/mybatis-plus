@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "diagram_type": "dataflow",
+  "meta": { "title": "core-mapping 数据流", "quality_profile": "showcase", "locale": "zh-CN" },
+  "stages": [ { "label": "配置" }, { "label": "元数据" }, { "label": "注入" }, { "label": "运行" } ],
+  "nodes": [
+    { "id": "n1", "type": "frontend", "label": "GlobalConfig", "stage": 0, "row": 0 },
+    { "id": "n2", "type": "backend", "label": "实体→TableInfo", "stage": 1, "row": 0 },
+    { "id": "n3", "type": "backend", "label": "内置CRUD语句", "stage": 2, "row": 0 },
+    { "id": "n4", "type": "database", "label": "MappedStatement", "stage": 3, "row": 0 }
+  ],
+  "flows": [
+    { "from": "n1", "to": "n2", "label": "装配", "variant": "emphasis", "route": "straight" },
+    { "from": "n2", "to": "n3", "label": "注入", "variant": "default", "route": "straight" },
+    { "from": "n3", "to": "n4", "label": "注册", "variant": "emphasis", "route": "straight" }
+  ]
+}

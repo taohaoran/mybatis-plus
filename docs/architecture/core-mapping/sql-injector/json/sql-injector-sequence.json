@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "diagram_type": "sequence",
+  "meta": { "title": "注入流程时序", "quality_profile": "showcase", "locale": "zh-CN", "viewBox": [1100, 760], "column_fit": "spread" },
+  "participants": [
+    { "id": "mp", "type": "external", "label": "Mapper解析" },
+    { "id": "inj", "type": "backend", "label": "注入器" },
+    { "id": "ti", "type": "database", "label": "表元数据" },
+    { "id": "am", "type": "backend", "label": "各方法" },
+    { "id": "cfg", "type": "external", "label": "MyBatis配置" }
+  ],
+  "messages": [
+    { "id": "m1", "from": "mp", "to": "inj", "y": 180, "label": "inspectInject", "variant": "emphasis" },
+    { "id": "m2", "from": "inj", "to": "ti", "y": 250, "label": "initTableInfo", "variant": "default" },
+    { "id": "m3", "from": "ti", "to": "inj", "y": 310, "label": "TableInfo", "variant": "return" },
+    { "id": "m4", "from": "inj", "to": "am", "y": 380, "label": "遍历 inject", "variant": "default" },
+    { "id": "m5", "from": "am", "to": "cfg", "y": 450, "label": "addMappedStatement", "variant": "emphasis" },
+    { "id": "m6", "from": "cfg", "to": "am", "y": 510, "label": "MappedStatement", "variant": "return" },
+    { "id": "m7", "from": "inj", "to": "mp", "y": 580, "label": "注入完成", "variant": "return" }
+  ]
+}

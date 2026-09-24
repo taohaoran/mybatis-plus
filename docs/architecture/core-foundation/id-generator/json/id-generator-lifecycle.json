@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "diagram_type": "lifecycle",
+  "meta": { "title": "雪花生成器状态机", "quality_profile": "showcase", "locale": "zh-CN", "viewBox": [1030, 630] },
+  "lanes": [
+    { "id": "main", "label": "生成阶段" },
+    { "id": "waiting", "label": "等待" },
+    { "id": "terminal", "label": "终止" }
+  ],
+  "states": [
+    { "id": "ready", "type": "start", "label": "就绪", "sublabel": "取号入口", "lane": "main", "col": 0 },
+    { "id": "gen", "type": "active", "label": "生成 ID", "sublabel": "位段拼装", "lane": "main", "col": 2 },
+    { "id": "spin", "type": "waiting", "label": "自旋等下毫秒", "sublabel": "序列溢出", "lane": "waiting", "col": 0 },
+    { "id": "reject", "type": "failure", "label": "时钟回拨拒绝", "sublabel": "回拨超5ms", "lane": "terminal", "col": 1 }
+  ],
+  "transitions": [
+    { "id": "t1", "from": "ready", "to": "gen", "label": "取号", "variant": "emphasis" },
+    { "id": "t2", "from": "gen", "to": "spin", "label": "序列溢出", "variant": "default", "labelDy": 40, "labelDx": -36 },
+    { "id": "t3", "from": "spin", "to": "gen", "label": "等到下毫秒", "variant": "dashed", "labelDy": -40, "labelDx": 36 },
+    { "id": "t4", "from": "gen", "to": "reject", "label": "时钟回拨", "variant": "security", "labelDy": 40 }
+  ],
+  "cards": [
+    { "dot": "emerald", "title": "要点", "items": ["同毫秒序列 12 位", "溢出自旋等下毫秒", "时钟回拨硬拒绝"] }
+  ]
+}

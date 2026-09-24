@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "diagram_type": "sequence",
+  "meta": { "title": "p6spy日志链路时序", "quality_profile": "showcase", "locale": "zh-CN", "viewBox": [1080, 700] },
+  "participants": [
+    { "id": "app", "type": "external", "label": "应用" },
+    { "id": "spy", "type": "backend", "label": "p6spy代理" },
+    { "id": "ev", "type": "backend", "label": "事件监听" },
+    { "id": "fmt", "type": "backend", "label": "格式化" },
+    { "id": "out", "type": "external", "label": "控制台" }
+  ],
+  "messages": [
+    { "id": "m1", "from": "app", "to": "spy", "y": 170, "label": "执行SQL", "variant": "emphasis" },
+    { "id": "m2", "from": "spy", "to": "ev", "y": 250, "label": "onAfterExecute", "variant": "default" },
+    { "id": "m3", "from": "ev", "to": "fmt", "y": 330, "label": "elapsed+sql", "variant": "default" },
+    { "id": "m4", "from": "fmt", "to": "out", "y": 410, "label": "耗时+规整SQL", "variant": "emphasis" },
+    { "id": "m5", "from": "spy", "to": "app", "y": 490, "label": "结果", "variant": "return" }
+  ]
+}

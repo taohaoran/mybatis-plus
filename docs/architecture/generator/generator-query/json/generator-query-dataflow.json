@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "diagram_type": "dataflow",
+  "meta": { "title": "元数据采集数据流", "quality_profile": "showcase", "locale": "zh-CN" },
+  "stages": [ { "label": "数据源" }, { "label": "读取" }, { "label": "转换" }, { "label": "产出" } ],
+  "nodes": [
+    { "id": "db", "type": "database", "label": "数据库", "stage": 0, "row": 1 },
+    { "id": "tab", "type": "backend", "label": "表列索引", "stage": 1, "row": 1 },
+    { "id": "flt", "type": "backend", "label": "包含排除过滤", "stage": 1, "row": 3 },
+    { "id": "typ", "type": "backend", "label": "列类型转换", "stage": 2, "row": 1, "tag": "主键识别" },
+    { "id": "ti", "type": "database", "label": "TableInfo", "stage": 3, "row": 1 }
+  ],
+  "flows": [
+    { "from": "db", "to": "tab", "label": "JDBC读取", "variant": "emphasis", "route": "straight" },
+    { "from": "tab", "to": "flt", "label": "过滤", "route": "vertical-channel" },
+    { "from": "tab", "to": "typ", "label": "转换", "route": "straight" },
+    { "from": "typ", "to": "ti", "label": "写模型", "variant": "emphasis", "route": "straight" }
+  ]
+}

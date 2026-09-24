@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": { "title": "启动器域架构图", "quality_profile": "showcase", "locale": "zh-CN" },
+  "components": [
+    { "id": "boot", "type": "external", "label": "Spring Boot", "pos": [40, 180], "size": [130, 60] },
+    { "id": "ac", "type": "backend", "label": "自动配置", "pos": [260, 180], "size": [130, 60], "tag": "三套starter" },
+    { "id": "fb", "type": "backend", "label": "工厂Bean", "pos": [480, 180], "size": [130, 60] },
+    { "id": "sql", "type": "database", "label": "SqlSessionFactory", "pos": [720, 180], "size": [150, 60] }
+  ],
+  "boundaries": [
+    { "kind": "region", "label": "spring-boot-starter", "wraps": ["ac", "fb"] }
+  ],
+  "connections": [
+    { "id": "c1", "from": "boot", "to": "ac", "variant": "emphasis" },
+    { "id": "c2", "from": "ac", "to": "fb", "variant": "emphasis" },
+    { "id": "c4", "from": "fb", "to": "sql", "variant": "emphasis" }
+  ],
+  "cards": [
+    { "dot": "emerald", "title": "域要点", "items": ["boot2/3/4 三套starter", "autoconfigure 共享模块", "AOT 与测试切片独立"] }
+  ]
+}

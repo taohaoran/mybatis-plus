@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "diagram_type": "dataflow",
+  "meta": { "title": "配置汇总数据流", "quality_profile": "showcase", "locale": "zh-CN" },
+  "stages": [ { "label": "用户配置" }, { "label": "汇总补默认" }, { "label": "产出" } ],
+  "nodes": [
+    { "id": "ds", "type": "database", "label": "数据源配置", "stage": 0, "row": 0 },
+    { "id": "oth", "type": "backend", "label": "全局策略包配置", "stage": 0, "row": 2 },
+    { "id": "cfg", "type": "backend", "label": "ConfigBuilder", "stage": 1, "row": 1, "tag": "补默认+算路径" },
+    { "id": "path", "type": "backend", "label": "输出路径表", "stage": 2, "row": 0 },
+    { "id": "q", "type": "backend", "label": "元数据查询", "stage": 2, "row": 2 }
+  ],
+  "flows": [
+    { "from": "ds", "to": "cfg", "label": "必传", "variant": "emphasis", "route": "straight" },
+    { "from": "oth", "to": "cfg", "label": "其他", "route": "straight" },
+    { "from": "cfg", "to": "path", "label": "路径表", "variant": "emphasis", "route": "straight" },
+    { "from": "cfg", "to": "q", "label": "查询", "route": "bottom-channel" }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": { "title": "逐表渲染输出流程", "quality_profile": "showcase", "locale": "zh-CN" },
+  "lanes": [
+    { "id": "engine", "label": "模板引擎" },
+    { "id": "strategy", "label": "策略判定" },
+    { "id": "fs", "label": "文件输出" }
+  ],
+  "mainPath": ["s", "t", "m", "g", "w"],
+  "nodes": [
+    { "id": "s", "lane": "engine", "col": 0, "type": "external", "label": "batchOutput 开始", "width": 140 },
+    { "id": "t", "lane": "engine", "col": 1, "type": "backend", "label": "取下一张表", "width": 130 },
+    { "id": "m", "lane": "engine", "col": 2, "type": "backend", "label": "组装 objectMap", "width": 130 },
+    { "id": "g", "lane": "strategy", "col": 3, "type": "security", "label": "产物开关开?", "width": 130 },
+    { "id": "w", "lane": "fs", "col": 4, "type": "database", "label": "writer 渲染落盘", "width": 130 },
+    { "id": "e", "lane": "engine", "col": 5, "type": "backend", "label": "全部表完成", "width": 130 }
+  ],
+  "edges": [
+    { "id": "e1", "from": "s", "to": "t", "variant": "emphasis" },
+    { "id": "e2", "from": "t", "to": "m", "variant": "emphasis" },
+    { "id": "e3", "from": "m", "to": "g", "variant": "emphasis" },
+    { "id": "e4", "from": "g", "to": "w", "label": "是", "variant": "emphasis" },
+    { "id": "e5", "from": "w", "to": "t", "label": "下一张", "variant": "dashed", "route": "bottom-channel" },
+    { "id": "e6", "from": "g", "to": "e", "label": "否", "variant": "default" }
+  ],
+  "cards": [
+    { "dot": "emerald", "title": "要点", "items": ["逐表渲染", "开关判定后落盘", "已存在且未覆盖则跳过"] }
+  ]
+}

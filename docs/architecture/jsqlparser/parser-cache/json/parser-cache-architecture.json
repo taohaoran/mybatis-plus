@@ -1,0 +1,156 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "解析缓存架构图",
+    "quality_profile": "showcase",
+    "locale": "zh-CN",
+    "viewBox": [
+      900,
+      460
+    ]
+  },
+  "components": [
+    {
+      "id": "support",
+      "type": "external",
+      "label": "拦截器基类",
+      "pos": [
+        80,
+        60
+      ],
+      "size": [
+        150,
+        60
+      ],
+      "tag": "JsqlParserSupport"
+    },
+    {
+      "id": "global",
+      "type": "backend",
+      "label": "全局解析门面",
+      "pos": [
+        360,
+        60
+      ],
+      "size": [
+        160,
+        60
+      ],
+      "tag": "JsqlParserGlobal"
+    },
+    {
+      "id": "cache",
+      "type": "backend",
+      "label": "解析缓存",
+      "pos": [
+        640,
+        30
+      ],
+      "size": [
+        160,
+        55
+      ],
+      "tag": "JsqlParseCache"
+    },
+    {
+      "id": "caff",
+      "type": "backend",
+      "label": "Caffeine实现",
+      "pos": [
+        640,
+        150
+      ],
+      "size": [
+        160,
+        55
+      ],
+      "tag": "JDK/FST/Fury"
+    },
+    {
+      "id": "pool",
+      "type": "backend",
+      "label": "解析线程池",
+      "pos": [
+        360,
+        220
+      ],
+      "size": [
+        160,
+        60
+      ],
+      "tag": "JsqlParserThreadPool"
+    },
+    {
+      "id": "jsql",
+      "type": "external",
+      "label": "JSQLParser库",
+      "pos": [
+        640,
+        220
+      ],
+      "size": [
+        160,
+        60
+      ]
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "jsqlparser parser",
+      "wraps": [
+        "global",
+        "cache",
+        "caff",
+        "pool"
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "c1",
+      "from": "support",
+      "to": "global",
+      "label": "parse",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c2",
+      "from": "global",
+      "to": "cache",
+      "label": "查/写",
+      "variant": "default"
+    },
+    {
+      "id": "c3",
+      "from": "cache",
+      "to": "caff",
+      "variant": "default"
+    },
+    {
+      "id": "c4",
+      "from": "global",
+      "to": "pool",
+      "variant": "default"
+    },
+    {
+      "id": "c5",
+      "from": "pool",
+      "to": "jsql",
+      "label": "解析AST",
+      "variant": "emphasis"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "emerald",
+      "title": "主路径",
+      "items": [
+        "先查缓存",
+        "未命中线程池解析",
+        "序列化回填"
+      ]
+    }
+  ]
+}

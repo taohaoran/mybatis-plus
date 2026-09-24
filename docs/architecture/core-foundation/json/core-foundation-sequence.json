@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "diagram_type": "sequence",
+  "meta": { "title": "core-foundation 关键时序", "quality_profile": "showcase", "locale": "zh-CN", "viewBox": [1000, 640], "column_fit": "spread" },
+  "participants": [
+    { "id": "biz", "type": "external", "label": "业务" },
+    { "id": "idg", "type": "backend", "label": "主键生成" },
+    { "id": "th", "type": "backend", "label": "类型处理" },
+    { "id": "jh", "type": "backend", "label": "填充SPI" },
+    { "id": "jdbc", "type": "external", "label": "JDBC" }
+  ],
+  "messages": [
+    { "id": "m1", "from": "biz", "to": "idg", "y": 160, "label": "nextId()", "variant": "emphasis" },
+    { "id": "m2", "from": "idg", "to": "biz", "y": 220, "label": "雪花ID", "variant": "return" },
+    { "id": "m3", "from": "biz", "to": "jh", "y": 290, "label": "insertFill", "variant": "default" },
+    { "id": "m4", "from": "jh", "to": "biz", "y": 350, "label": "公共字段", "variant": "return" },
+    { "id": "m5", "from": "biz", "to": "th", "y": 420, "label": "枚举转库值", "variant": "default" },
+    { "id": "m6", "from": "th", "to": "jdbc", "y": 490, "label": "setObject", "variant": "emphasis" },
+    { "id": "m7", "from": "jdbc", "to": "biz", "y": 550, "label": "完成", "variant": "return" }
+  ]
+}

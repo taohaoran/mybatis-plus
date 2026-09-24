@@ -1,0 +1,135 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "DDL执行架构图",
+    "quality_profile": "showcase",
+    "locale": "zh-CN",
+    "viewBox": [
+      900,
+      460
+    ]
+  },
+  "components": [
+    {
+      "id": "idldl",
+      "type": "external",
+      "label": "业务IDdl",
+      "pos": [
+        80,
+        60
+      ],
+      "size": [
+        150,
+        60
+      ],
+      "tag": "用户实现"
+    },
+    {
+      "id": "helper",
+      "type": "backend",
+      "label": "DdlHelper",
+      "pos": [
+        360,
+        60
+      ],
+      "size": [
+        150,
+        60
+      ],
+      "tag": "编排核心"
+    },
+    {
+      "id": "gen",
+      "type": "backend",
+      "label": "方言生成器",
+      "pos": [
+        640,
+        40
+      ],
+      "size": [
+        160,
+        90
+      ],
+      "tag": "4种数据库"
+    },
+    {
+      "id": "script",
+      "type": "backend",
+      "label": "DdlScript",
+      "pos": [
+        360,
+        220
+      ],
+      "size": [
+        150,
+        60
+      ],
+      "tag": "脚本门面"
+    },
+    {
+      "id": "db",
+      "type": "database",
+      "label": "数据库",
+      "pos": [
+        640,
+        220
+      ],
+      "size": [
+        160,
+        60
+      ]
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "extension ddl 包",
+      "wraps": [
+        "helper",
+        "gen",
+        "script"
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "c1",
+      "from": "idldl",
+      "to": "helper",
+      "label": "runScript",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c2",
+      "from": "helper",
+      "to": "gen",
+      "label": "建历史表",
+      "variant": "default"
+    },
+    {
+      "id": "c3",
+      "from": "helper",
+      "to": "script",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c4",
+      "from": "script",
+      "to": "db",
+      "label": "执行DDL",
+      "variant": "default"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "emerald",
+      "title": "主路径",
+      "items": [
+        "建ddl_history",
+        "查记录",
+        "未执行则跑并记录"
+      ]
+    }
+  ]
+}

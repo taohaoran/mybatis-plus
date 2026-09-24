@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "diagram_type": "sequence",
+  "meta": { "title": "Boot 启动装配时序", "quality_profile": "showcase", "locale": "zh-CN", "viewBox": [1100, 620], "column_fit": "spread" },
+  "participants": [
+    { "id": "app", "type": "external", "label": "Boot应用" },
+    { "id": "ac", "type": "backend", "label": "自动配置" },
+    { "id": "fb", "type": "backend", "label": "工厂Bean" },
+    { "id": "sql", "type": "backend", "label": "SqlSessionFactory" }
+  ],
+  "messages": [
+    { "id": "m1", "from": "app", "to": "ac", "y": 160, "label": "启动加载", "variant": "emphasis" },
+    { "id": "m2", "from": "ac", "to": "fb", "y": 230, "label": "条件判定后创建" },
+    { "id": "m3", "from": "fb", "to": "sql", "y": 300, "label": "buildSqlSessionFactory", "variant": "emphasis" },
+    { "id": "m4", "from": "ac", "to": "fb", "y": 380, "label": "挂增强组件", "variant": "dashed" },
+    { "id": "m6", "from": "sql", "to": "app", "y": 470, "label": "工厂可用", "variant": "return" }
+  ]
+}

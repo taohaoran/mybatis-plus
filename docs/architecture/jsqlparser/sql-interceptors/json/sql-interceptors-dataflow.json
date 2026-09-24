@@ -1,0 +1,97 @@
+{
+  "schema_version": 1,
+  "diagram_type": "dataflow",
+  "meta": {
+    "title": "租户SQL改写数据流",
+    "quality_profile": "showcase",
+    "locale": "zh-CN",
+    "viewBox": [
+      1120,
+      420
+    ]
+  },
+  "stages": [
+    {
+      "label": "原SQL"
+    },
+    {
+      "label": "解析AST"
+    },
+    {
+      "label": "遍历表"
+    },
+    {
+      "label": "注入条件"
+    },
+    {
+      "label": "改写SQL"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "n1",
+      "type": "frontend",
+      "label": "原SQL",
+      "stage": 0,
+      "row": 0
+    },
+    {
+      "id": "n2",
+      "type": "backend",
+      "label": "JsqlParser",
+      "stage": 1,
+      "row": 0
+    },
+    {
+      "id": "n3",
+      "type": "backend",
+      "label": "逐表处理",
+      "stage": 2,
+      "row": 0
+    },
+    {
+      "id": "n4",
+      "type": "backend",
+      "label": "租户=值",
+      "stage": 3,
+      "row": 0
+    },
+    {
+      "id": "n5",
+      "type": "database",
+      "label": "新SQL",
+      "stage": 4,
+      "row": 0
+    }
+  ],
+  "flows": [
+    {
+      "from": "n1",
+      "to": "n2",
+      "label": "SQL",
+      "variant": "emphasis",
+      "route": "straight"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "label": "AST",
+      "variant": "default",
+      "route": "straight"
+    },
+    {
+      "from": "n3",
+      "to": "n4",
+      "label": "where",
+      "variant": "default",
+      "route": "straight"
+    },
+    {
+      "from": "n4",
+      "to": "n5",
+      "label": "toString",
+      "variant": "emphasis",
+      "route": "straight"
+    }
+  ]
+}

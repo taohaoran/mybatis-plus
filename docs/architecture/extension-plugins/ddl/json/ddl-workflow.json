@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "diagram_type": "sequence",
+  "meta": {
+    "title": "DDL执行时序",
+    "quality_profile": "showcase",
+    "locale": "zh-CN",
+    "viewBox": [
+      1080,
+      720
+    ]
+  },
+  "participants": [
+    {
+      "id": "u",
+      "type": "external",
+      "label": "业务"
+    },
+    {
+      "id": "h",
+      "type": "backend",
+      "label": "DdlHelper"
+    },
+    {
+      "id": "g",
+      "type": "backend",
+      "label": "方言生成器"
+    },
+    {
+      "id": "db",
+      "type": "database",
+      "label": "数据库"
+    }
+  ],
+  "messages": [
+    {
+      "id": "m1",
+      "from": "u",
+      "to": "h",
+      "y": 170,
+      "label": "runScript",
+      "variant": "emphasis"
+    },
+    {
+      "id": "m2",
+      "from": "h",
+      "to": "g",
+      "y": 250,
+      "label": "建历史表SQL",
+      "variant": "default"
+    },
+    {
+      "id": "m3",
+      "from": "h",
+      "to": "db",
+      "y": 330,
+      "label": "查/建ddl_history",
+      "variant": "default"
+    },
+    {
+      "id": "m4",
+      "from": "h",
+      "to": "db",
+      "y": 410,
+      "label": "执行未跑脚本",
+      "variant": "emphasis"
+    },
+    {
+      "id": "m5",
+      "from": "db",
+      "to": "h",
+      "y": 490,
+      "label": "记版本",
+      "variant": "return"
+    }
+  ]
+}

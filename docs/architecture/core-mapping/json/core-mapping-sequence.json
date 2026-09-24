@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "diagram_type": "sequence",
+  "meta": { "title": "core-mapping 执行时序", "quality_profile": "showcase", "locale": "zh-CN", "viewBox": [1050, 680], "column_fit": "spread" },
+  "participants": [
+    { "id": "biz", "type": "external", "label": "业务" },
+    { "id": "wrap", "type": "backend", "label": "条件构造" },
+    { "id": "proxy", "type": "backend", "label": "Mapper代理" },
+    { "id": "meta", "type": "database", "label": "表元数据" },
+    { "id": "myb", "type": "external", "label": "MyBatis" }
+  ],
+  "messages": [
+    { "id": "m1", "from": "biz", "to": "wrap", "y": 160, "label": "wrapper.eq(..)", "variant": "emphasis" },
+    { "id": "m2", "from": "wrap", "to": "biz", "y": 220, "label": "where片段", "variant": "return" },
+    { "id": "m3", "from": "biz", "to": "proxy", "y": 290, "label": "mapper.selectList", "variant": "default" },
+    { "id": "m4", "from": "proxy", "to": "meta", "y": 360, "label": "取TableInfo", "variant": "default" },
+    { "id": "m5", "from": "meta", "to": "proxy", "y": 420, "label": "元数据", "variant": "return" },
+    { "id": "m6", "from": "proxy", "to": "myb", "y": 490, "label": "执行SQL", "variant": "emphasis" },
+    { "id": "m7", "from": "myb", "to": "biz", "y": 560, "label": "结果集", "variant": "return" }
+  ]
+}

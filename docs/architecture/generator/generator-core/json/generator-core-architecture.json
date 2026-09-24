@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": { "title": "生成主流程架构图", "quality_profile": "showcase", "locale": "zh-CN" },
+  "components": [
+    { "id": "user", "type": "external", "label": "用户 main", "pos": [60, 180], "size": [120, 52] },
+    { "id": "fast", "type": "backend", "label": "FastAutoGenerator", "pos": [260, 180], "size": [160, 56], "tag": "流式门面" },
+    { "id": "auto", "type": "backend", "label": "AutoGenerator", "pos": [490, 180], "size": [150, 56], "tag": "编排器" },
+    { "id": "cfg", "type": "backend", "label": "ConfigBuilder", "pos": [700, 100], "size": [140, 52] },
+    { "id": "eng", "type": "backend", "label": "模板引擎", "pos": [700, 260], "size": [140, 52] },
+    { "id": "spi", "type": "external", "label": "注解/方法 SPI", "pos": [260, 320], "size": [160, 52] }
+  ],
+  "connections": [
+    { "id": "c1", "from": "user", "to": "fast", "variant": "emphasis" },
+    { "id": "c2", "from": "fast", "to": "auto", "variant": "emphasis" },
+    { "id": "c3", "from": "auto", "to": "cfg" },
+    { "id": "c4", "from": "auto", "to": "eng", "variant": "emphasis" },
+    { "id": "c5", "from": "spi", "to": "auto", "variant": "dashed" }
+  ],
+  "cards": [
+    { "dot": "emerald", "title": "要点", "items": ["execute 驱动全链路", "DataSource 唯一必传", "SPI 可替换"] }
+  ]
+}

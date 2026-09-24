@@ -1,0 +1,177 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "SQL智能拦截器架构图",
+    "quality_profile": "showcase",
+    "locale": "zh-CN",
+    "viewBox": [
+      960,
+      420
+    ]
+  },
+  "components": [
+    {
+      "id": "support",
+      "type": "external",
+      "label": "插件链",
+      "pos": [
+        60,
+        60
+      ],
+      "size": [
+        140,
+        60
+      ],
+      "tag": "MP拦截器"
+    },
+    {
+      "id": "base",
+      "type": "backend",
+      "label": "多表基类",
+      "pos": [
+        320,
+        60
+      ],
+      "size": [
+        150,
+        60
+      ],
+      "tag": "BaseMultiTable"
+    },
+    {
+      "id": "tenant",
+      "type": "backend",
+      "label": "多租户",
+      "pos": [
+        580,
+        20
+      ],
+      "size": [
+        140,
+        48
+      ]
+    },
+    {
+      "id": "page",
+      "type": "backend",
+      "label": "物理分页",
+      "pos": [
+        580,
+        80
+      ],
+      "size": [
+        140,
+        48
+      ]
+    },
+    {
+      "id": "block",
+      "type": "backend",
+      "label": "全表阻断",
+      "pos": [
+        580,
+        140
+      ],
+      "size": [
+        140,
+        48
+      ]
+    },
+    {
+      "id": "dp",
+      "type": "backend",
+      "label": "数据权限",
+      "pos": [
+        580,
+        200
+      ],
+      "size": [
+        140,
+        48
+      ]
+    },
+    {
+      "id": "jsql",
+      "type": "external",
+      "label": "JSQLParser AST",
+      "pos": [
+        320,
+        240
+      ],
+      "size": [
+        150,
+        60
+      ]
+    },
+    {
+      "id": "db",
+      "type": "database",
+      "label": "数据库",
+      "pos": [
+        60,
+        240
+      ],
+      "size": [
+        140,
+        60
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "c1",
+      "from": "support",
+      "to": "base",
+      "label": "beforeQuery",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c2",
+      "from": "base",
+      "to": "tenant",
+      "variant": "default"
+    },
+    {
+      "id": "c3",
+      "from": "base",
+      "to": "page",
+      "variant": "default"
+    },
+    {
+      "id": "c4",
+      "from": "base",
+      "to": "block",
+      "variant": "default"
+    },
+    {
+      "id": "c5",
+      "from": "base",
+      "to": "dp",
+      "variant": "default"
+    },
+    {
+      "id": "c6",
+      "from": "base",
+      "to": "jsql",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c7",
+      "from": "support",
+      "to": "db",
+      "variant": "dashed"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "emerald",
+      "title": "主路径",
+      "items": [
+        "AST解析SQL",
+        "逐表注入条件",
+        "改写后执行"
+      ]
+    }
+  ]
+}

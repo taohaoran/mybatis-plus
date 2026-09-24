@@ -1,0 +1,82 @@
+{
+  "schema_version": 1,
+  "diagram_type": "sequence",
+  "meta": {
+    "title": "插件域请求时序",
+    "quality_profile": "showcase",
+    "locale": "zh-CN",
+    "viewBox": [
+      1080,
+      720
+    ]
+  },
+  "participants": [
+    {
+      "id": "u",
+      "type": "external",
+      "label": "用户"
+    },
+    {
+      "id": "chain",
+      "type": "backend",
+      "label": "插件链"
+    },
+    {
+      "id": "pg",
+      "type": "backend",
+      "label": "分页"
+    },
+    {
+      "id": "opt",
+      "type": "backend",
+      "label": "乐观锁"
+    },
+    {
+      "id": "db",
+      "type": "database",
+      "label": "数据库"
+    }
+  ],
+  "messages": [
+    {
+      "id": "m1",
+      "from": "u",
+      "to": "chain",
+      "y": 170,
+      "label": "Mapper调用",
+      "variant": "emphasis"
+    },
+    {
+      "id": "m2",
+      "from": "chain",
+      "to": "pg",
+      "y": 250,
+      "label": "beforeQuery",
+      "variant": "default"
+    },
+    {
+      "id": "m3",
+      "from": "chain",
+      "to": "opt",
+      "y": 330,
+      "label": "beforeUpdate",
+      "variant": "default"
+    },
+    {
+      "id": "m4",
+      "from": "chain",
+      "to": "db",
+      "y": 410,
+      "label": "改写SQL",
+      "variant": "emphasis"
+    },
+    {
+      "id": "m5",
+      "from": "db",
+      "to": "u",
+      "y": 490,
+      "label": "结果",
+      "variant": "return"
+    }
+  ]
+}

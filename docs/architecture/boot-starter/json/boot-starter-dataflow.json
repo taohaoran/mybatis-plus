@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "diagram_type": "dataflow",
+  "meta": { "title": "启动器装配数据流", "quality_profile": "showcase", "locale": "zh-CN" },
+  "stages": [ { "label": "引入依赖" }, { "label": "条件装配" }, { "label": "构建" }, { "label": "就绪" } ],
+  "nodes": [
+    { "id": "starter", "type": "external", "label": "starter依赖", "stage": 0, "row": 1 },
+    { "id": "props", "type": "backend", "label": "mybatis-plus.*", "stage": 1, "row": 1 },
+    { "id": "fb", "type": "backend", "label": "工厂Bean", "stage": 2, "row": 1 },
+    { "id": "sql", "type": "database", "label": "SqlSessionFactory", "stage": 3, "row": 1 }
+  ],
+  "flows": [
+    { "from": "starter", "to": "props", "label": "触发", "variant": "emphasis", "route": "straight" },
+    { "from": "props", "to": "fb", "label": "绑定", "variant": "emphasis", "route": "straight" },
+    { "from": "fb", "to": "sql", "label": "构建", "variant": "emphasis", "route": "straight" }
+  ]
+}

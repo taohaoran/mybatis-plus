@@ -1,0 +1,144 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "JSON处理器架构图",
+    "quality_profile": "showcase",
+    "locale": "zh-CN",
+    "viewBox": [
+      900,
+      420
+    ]
+  },
+  "components": [
+    {
+      "id": "base",
+      "type": "backend",
+      "label": "AbstractJson",
+      "pos": [
+        80,
+        150
+      ],
+      "size": [
+        160,
+        60
+      ],
+      "tag": "模板方法"
+    },
+    {
+      "id": "jack",
+      "type": "backend",
+      "label": "Jackson",
+      "pos": [
+        360,
+        40
+      ],
+      "size": [
+        150,
+        50
+      ]
+    },
+    {
+      "id": "jack3",
+      "type": "backend",
+      "label": "Jackson3",
+      "pos": [
+        360,
+        105
+      ],
+      "size": [
+        150,
+        50
+      ]
+    },
+    {
+      "id": "fast",
+      "type": "backend",
+      "label": "Fastjson",
+      "pos": [
+        360,
+        170
+      ],
+      "size": [
+        150,
+        50
+      ]
+    },
+    {
+      "id": "gson",
+      "type": "backend",
+      "label": "Gson",
+      "pos": [
+        360,
+        235
+      ],
+      "size": [
+        150,
+        50
+      ]
+    },
+    {
+      "id": "db",
+      "type": "database",
+      "label": "JSON列",
+      "pos": [
+        640,
+        150
+      ],
+      "size": [
+        150,
+        60
+      ]
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "extension handlers",
+      "wraps": [
+        "base",
+        "jack",
+        "jack3",
+        "fast",
+        "gson"
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "c1",
+      "from": "base",
+      "to": "jack",
+      "variant": "default"
+    },
+    {
+      "id": "c2",
+      "from": "base",
+      "to": "jack3",
+      "variant": "default"
+    },
+    {
+      "id": "c3",
+      "from": "base",
+      "to": "fast",
+      "variant": "default"
+    },
+    {
+      "id": "c4",
+      "from": "base",
+      "to": "gson",
+      "variant": "default"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "emerald",
+      "title": "主路径",
+      "items": [
+        "基类定模板",
+        "子类换JSON库",
+        "字符串列存取"
+      ]
+    }
+  ]
+}

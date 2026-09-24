@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": { "title": "代码生成域架构图", "quality_profile": "showcase", "locale": "zh-CN" },
+  "components": [
+    { "id": "core", "type": "backend", "label": "编排入口", "pos": [40, 180], "size": [140, 60], "tag": "AutoGenerator" },
+    { "id": "cfg", "type": "backend", "label": "配置体系", "pos": [260, 180], "size": [130, 60] },
+    { "id": "qry", "type": "backend", "label": "元数据查询", "pos": [470, 180], "size": [140, 60] },
+    { "id": "eng", "type": "backend", "label": "模板引擎", "pos": [700, 180], "size": [130, 60] },
+    { "id": "out", "type": "database", "label": "代码文件", "pos": [910, 180], "size": [130, 60] }
+  ],
+  "boundaries": [
+    { "kind": "region", "label": "mybatis-plus-generator", "wraps": ["core", "cfg", "qry", "eng"] }
+  ],
+  "connections": [
+    { "id": "c1", "from": "core", "to": "cfg", "variant": "emphasis" },
+    { "id": "c2", "from": "cfg", "to": "qry", "variant": "emphasis" },
+    { "id": "c3", "from": "qry", "to": "eng", "variant": "emphasis" },
+    { "id": "c4", "from": "eng", "to": "out", "variant": "emphasis" }
+  ],
+  "cards": [
+    { "dot": "emerald", "title": "域要点", "items": ["配置→查询→引擎三段", "DataSource 唯一必传", "四引擎可插拔"] }
+  ]
+}

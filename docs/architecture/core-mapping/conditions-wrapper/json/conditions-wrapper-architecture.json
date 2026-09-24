@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": { "title": "条件构造器架构图", "quality_profile": "showcase", "locale": "zh-CN", "viewBox": [900, 560] },
+  "components": [
+    { "id": "wrappers", "type": "frontend", "label": "Wrappers 工厂", "pos": [110, 100], "size": [180, 56] },
+    { "id": "qw", "type": "frontend", "label": "Query/Update Wrapper", "pos": [110, 230], "size": [180, 56] },
+    { "id": "aw", "type": "backend", "label": "AbstractWrapper", "pos": [430, 100], "size": [180, 56], "tag": "条件方法" },
+    { "id": "ms", "type": "backend", "label": "MergeSegments", "pos": [430, 230], "size": [180, 56] },
+    { "id": "segs", "type": "database", "label": "四片段列表", "pos": [430, 360], "size": [180, 56] }
+  ],
+  "connections": [
+    { "id": "c1", "from": "wrappers", "to": "qw", "label": "创建", "variant": "default", "labelDy": 22 },
+    { "id": "c2", "from": "qw", "to": "aw", "label": "继承", "variant": "default", "labelDy": 22 },
+    { "id": "c3", "from": "aw", "to": "ms", "label": "appendSqlSegments", "variant": "emphasis", "labelDy": 22 },
+    { "id": "c4", "from": "ms", "to": "segs", "label": "路由分发", "variant": "default", "labelDy": 22 }
+  ],
+  "cards": [
+    { "dot": "emerald", "title": "要点", "items": ["链式条件", "片段路由缓存", "Lambda列解析"] }
+  ]
+}

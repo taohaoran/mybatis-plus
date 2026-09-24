@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "diagram_type": "sequence",
+  "meta": { "title": "AR insert调用时序", "quality_profile": "showcase", "locale": "zh-CN", "viewBox": [1080, 720] },
+  "participants": [
+    { "id": "e", "type": "external", "label": "实体" },
+    { "id": "h", "type": "backend", "label": "SqlHelper" },
+    { "id": "s", "type": "backend", "label": "SqlSession" },
+    { "id": "m", "type": "database", "label": "Mapper" }
+  ],
+  "messages": [
+    { "id": "m1", "from": "e", "to": "h", "y": 170, "label": "insert()", "variant": "emphasis" },
+    { "id": "m2", "from": "h", "to": "s", "y": 250, "label": "openSession", "variant": "default" },
+    { "id": "m3", "from": "e", "to": "s", "y": 330, "label": "insert(statement,entity)", "variant": "default" },
+    { "id": "m4", "from": "s", "to": "m", "y": 410, "label": "执行insert", "variant": "emphasis" },
+    { "id": "m5", "from": "m", "to": "s", "y": 490, "label": "影响行数", "variant": "return" },
+    { "id": "m6", "from": "h", "to": "s", "y": 570, "label": "closeSession", "variant": "default" }
+  ]
+}

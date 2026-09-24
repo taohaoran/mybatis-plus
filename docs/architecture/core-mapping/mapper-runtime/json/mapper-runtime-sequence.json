@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "diagram_type": "sequence",
+  "meta": { "title": "Mapper 调用时序", "quality_profile": "showcase", "locale": "zh-CN", "viewBox": [1050, 720], "column_fit": "spread" },
+  "participants": [
+    { "id": "biz", "type": "external", "label": "业务" },
+    { "id": "proxy", "type": "backend", "label": "Mapper代理" },
+    { "id": "ph", "type": "backend", "label": "参数处理" },
+    { "id": "mh", "type": "backend", "label": "填充SPI" },
+    { "id": "myb", "type": "external", "label": "MyBatis" }
+  ],
+  "messages": [
+    { "id": "m1", "from": "biz", "to": "proxy", "y": 170, "label": "selectById(1)", "variant": "emphasis" },
+    { "id": "m2", "from": "proxy", "to": "ph", "y": 240, "label": "分发执行", "variant": "default" },
+    { "id": "m3", "from": "ph", "to": "mh", "y": 310, "label": "insertFill", "variant": "default" },
+    { "id": "m4", "from": "mh", "to": "ph", "y": 370, "label": "填充公共字段", "variant": "return" },
+    { "id": "m5", "from": "ph", "to": "myb", "y": 440, "label": "执行 SQL", "variant": "emphasis" },
+    { "id": "m6", "from": "myb", "to": "ph", "y": 510, "label": "结果", "variant": "return" },
+    { "id": "m7", "from": "ph", "to": "biz", "y": 580, "label": "返回实体", "variant": "return" }
+  ]
+}

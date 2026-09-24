@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "diagram_type": "sequence",
+  "meta": {
+    "title": "BaseMapper CRUD 调用时序",
+    "quality_profile": "standard",
+    "locale": "zh-CN",
+    "viewBox": [1200, 860]
+  },
+  "participants": [
+    { "id": "user", "type": "external", "label": "业务代码" },
+    { "id": "mapper", "type": "backend", "label": "MapperProxy" },
+    { "id": "method", "type": "backend", "label": "MapperMethod" },
+    { "id": "interceptor", "type": "backend", "label": "拦截器链" },
+    { "id": "executor", "type": "backend", "label": "Executor" },
+    { "id": "db", "type": "database", "label": "数据库" }
+  ],
+  "messages": [
+    { "id": "m1", "from": "user", "to": "mapper", "y": 160, "label": "mapper.selectList(wrapper)", "variant": "emphasis" },
+    { "id": "m2", "from": "mapper", "to": "method", "y": 220, "label": "invoke 代理分发", "variant": "default" },
+    { "id": "m3", "from": "method", "to": "executor", "y": 280, "label": "execute SQL 执行", "variant": "default" },
+    { "id": "m4", "from": "executor", "to": "interceptor", "y": 340, "label": "query 拦截改写", "variant": "default" },
+    { "id": "m5", "from": "interceptor", "to": "executor", "y": 400, "label": "改写后 SQL", "variant": "return" },
+    { "id": "m6", "from": "executor", "to": "db", "y": 460, "label": "JDBC 执行", "variant": "default" },
+    { "id": "m7", "from": "db", "to": "executor", "y": 520, "label": "ResultSet", "variant": "return" },
+    { "id": "m8", "from": "executor", "to": "method", "y": 580, "label": "结果映射", "variant": "return" },
+    { "id": "m9", "from": "method", "to": "mapper", "y": 640, "label": "返回实体列表", "variant": "return" },
+    { "id": "m10", "from": "mapper", "to": "user", "y": 700, "label": "List<T>", "variant": "return" }
+  ]
+}

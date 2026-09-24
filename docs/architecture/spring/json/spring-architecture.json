@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": { "title": "Spring 集成域架构图", "quality_profile": "showcase", "locale": "zh-CN" },
+  "components": [
+    { "id": "ctx", "type": "external", "label": "Spring 容器", "pos": [40, 180], "size": [140, 60] },
+    { "id": "fb", "type": "backend", "label": "工厂Bean", "pos": [280, 180], "size": [130, 60], "tag": "SqlSessionFactory" },
+    { "id": "svc", "type": "backend", "label": "Service/AR", "pos": [500, 180], "size": [140, 60] },
+    { "id": "core", "type": "database", "label": "MyBatis核心", "pos": [740, 180], "size": [140, 60] }
+  ],
+  "boundaries": [
+    { "kind": "region", "label": "mybatis-plus-spring", "wraps": ["fb", "svc"] }
+  ],
+  "connections": [
+    { "id": "c1", "from": "ctx", "to": "fb", "variant": "emphasis" },
+    { "id": "c2", "from": "fb", "to": "svc", "variant": "emphasis" },
+    { "id": "c3", "from": "svc", "to": "core", "variant": "emphasis" }
+  ],
+  "cards": [
+    { "dot": "emerald", "title": "域要点", "items": ["11 文件最小域", "工厂Bean桥接核心", "Service/AR/SqlRunner 复用"] }
+  ]
+}

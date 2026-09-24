@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": { "title": "SQL 注入器架构图", "quality_profile": "showcase", "locale": "zh-CN", "viewBox": [900, 700] },
+  "components": [
+    { "id": "parse", "type": "external", "label": "Mapper 解析", "pos": [350, 50], "size": [200, 56] },
+    { "id": "inj", "type": "backend", "label": "AbstractSqlInjector", "pos": [350, 180], "size": [200, 56] },
+    { "id": "def", "type": "backend", "label": "默认方法清单", "pos": [350, 310], "size": [200, 56] },
+    { "id": "am", "type": "backend", "label": "AbstractMethod", "pos": [350, 440], "size": [200, 56] },
+    { "id": "ms", "type": "database", "label": "MappedStatement", "pos": [350, 570], "size": [200, 56] }
+  ],
+  "connections": [
+    { "id": "c1", "from": "parse", "to": "inj", "label": "inspectInject", "variant": "emphasis", "labelDy": 22 },
+    { "id": "c2", "from": "inj", "to": "def", "label": "getMethodList", "variant": "default", "labelDy": 22 },
+    { "id": "c3", "from": "def", "to": "am", "label": "遍历 inject", "variant": "default", "labelDy": 22 },
+    { "id": "c4", "from": "am", "to": "ms", "label": "注册", "variant": "emphasis", "labelDy": 22 }
+  ],
+  "cards": [
+    { "dot": "emerald", "title": "要点", "items": ["启动期一次性注入", "按主键条件注入", "模板方法"] }
+  ]
+}

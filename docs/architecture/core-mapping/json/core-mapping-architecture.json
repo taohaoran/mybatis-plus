@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": { "title": "core-mapping 域架构图", "quality_profile": "showcase", "locale": "zh-CN", "viewBox": [1000, 480] },
+  "components": [
+    { "id": "cfg", "type": "frontend", "label": "config-bootstrap", "pos": [80, 100], "size": [180, 56] },
+    { "id": "meta", "type": "backend", "label": "table-metadata", "pos": [330, 100], "size": [180, 56] },
+    { "id": "inj", "type": "backend", "label": "sql-injector", "pos": [580, 100], "size": [180, 56] },
+    { "id": "wrap", "type": "backend", "label": "conditions-wrapper", "pos": [200, 260], "size": [190, 56] },
+    { "id": "rt", "type": "backend", "label": "mapper-runtime", "pos": [480, 260], "size": [180, 56] }
+  ],
+  "boundaries": [
+    { "kind": "region", "label": "启动期", "wraps": ["cfg", "meta", "inj"] },
+    { "kind": "region", "label": "运行期", "wraps": ["wrap", "rt"] }
+  ],
+  "cards": [ { "dot": "emerald", "title": "要点", "items": ["启动期注入", "运行期代理", "两阶段"] } ]
+}

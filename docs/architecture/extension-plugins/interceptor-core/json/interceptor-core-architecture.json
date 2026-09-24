@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": { "title": "拦截器核心架构图", "quality_profile": "showcase", "locale": "zh-CN", "viewBox": [960, 480] },
+  "components": [
+    { "id": "mb", "type": "external", "label": "MyBatis执行器", "pos": [80, 60], "size": [150, 60], "tag": "Executor" },
+    { "id": "chain", "type": "backend", "label": "插件链调度", "pos": [380, 60], "size": [160, 60], "tag": "MybatisPlusInterceptor" },
+    { "id": "optlock", "type": "backend", "label": "乐观锁", "pos": [680, 30], "size": [150, 50] },
+    { "id": "dnt", "type": "backend", "label": "动态表名", "pos": [680, 100], "size": [150, 50] },
+    { "id": "ph", "type": "backend", "label": "占位符替换", "pos": [680, 170], "size": [150, 50] },
+    { "id": "spi", "type": "backend", "label": "内部拦截器SPI", "pos": [380, 240], "size": [160, 60], "tag": "InnerInterceptor" },
+    { "id": "prop", "type": "backend", "label": "属性装配", "pos": [80, 240], "size": [150, 60], "tag": "PropertyMapper" }
+  ],
+  "boundaries": [
+    { "kind": "region", "label": "extension 插件包", "wraps": ["chain", "optlock", "dnt", "ph", "spi", "prop"] }
+  ],
+  "connections": [
+    { "id": "c1", "from": "mb", "to": "chain", "label": "拦截调用", "variant": "emphasis" },
+    { "id": "c2", "from": "chain", "to": "optlock", "label": "更新", "variant": "default" },
+    { "id": "c3", "from": "chain", "to": "dnt", "label": "表名", "variant": "default" },
+    { "id": "c4", "from": "chain", "to": "ph", "label": "占位符", "variant": "default" },
+    { "id": "c5", "from": "chain", "to": "spi", "label": "调度", "variant": "emphasis", "labelDy": 24 },
+    { "id": "c6", "from": "prop", "to": "chain", "label": "反射装配", "variant": "dashed" }
+  ],
+  "cards": [
+    { "dot": "emerald", "title": "主路径", "items": ["执行器被代理", "链调度内部拦截器", "改写SQL交回执行"] }
+  ]
+}

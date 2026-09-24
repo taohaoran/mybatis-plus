@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "diagram_type": "sequence",
+  "meta": { "title": "工厂Bean装配时序", "quality_profile": "showcase", "locale": "zh-CN", "viewBox": [1100, 680], "column_fit": "spread" },
+  "participants": [
+    { "id": "ctx", "type": "external", "label": "Spring容器" },
+    { "id": "fb", "type": "backend", "label": "工厂Bean" },
+    { "id": "builder", "type": "backend", "label": "增强构建器" },
+    { "id": "gc", "type": "backend", "label": "全局配置" },
+    { "id": "sql", "type": "backend", "label": "SqlSessionFactory" }
+  ],
+  "messages": [
+    { "id": "m1", "from": "ctx", "to": "fb", "y": 160, "label": "afterPropertiesSet", "variant": "emphasis" },
+    { "id": "m2", "from": "fb", "to": "builder", "y": 230, "label": "buildSqlSessionFactory" },
+    { "id": "m3", "from": "fb", "to": "gc", "y": 300, "label": "挂载增强组件" },
+    { "id": "m4", "from": "builder", "to": "sql", "y": 370, "label": "new MybatisConfiguration" },
+    { "id": "m5", "from": "fb", "to": "ctx", "y": 450, "label": "getObject 返回工厂", "variant": "return" }
+  ]
+}

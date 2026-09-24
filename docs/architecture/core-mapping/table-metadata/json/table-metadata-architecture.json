@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": { "title": "表元数据架构图", "quality_profile": "showcase", "locale": "zh-CN", "viewBox": [900, 680] },
+  "components": [
+    { "id": "entity", "type": "external", "label": "实体类", "pos": [380, 50], "size": [240, 56] },
+    { "id": "helper", "type": "backend", "label": "TableInfoHelper", "pos": [380, 180], "size": [240, 56] },
+    { "id": "ti", "type": "backend", "label": "TableInfo", "pos": [380, 310], "size": [240, 56] },
+    { "id": "tfi", "type": "database", "label": "TableFieldInfo", "pos": [380, 440], "size": [240, 56] },
+    { "id": "cache", "type": "database", "label": "元数据缓存", "pos": [380, 570], "size": [240, 56] }
+  ],
+  "connections": [
+    { "id": "c1", "from": "entity", "to": "helper", "label": "反射扫描", "variant": "emphasis", "labelDy": 22 },
+    { "id": "c2", "from": "helper", "to": "ti", "label": "构建", "variant": "default", "labelDy": 22 },
+    { "id": "c3", "from": "ti", "to": "tfi", "label": "持字段列表", "variant": "default", "labelDy": 22 },
+    { "id": "c4", "from": "tfi", "to": "cache", "label": "写入缓存", "variant": "emphasis", "labelDy": 22 }
+  ],
+  "cards": [
+    { "dot": "emerald", "title": "要点", "items": ["实体↔表映射", "ConcurrentHashMap缓存", "初始化后只读"] }
+  ]
+}

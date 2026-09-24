@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": { "title": "Lambda 解析架构图", "quality_profile": "showcase", "locale": "zh-CN", "viewBox": [1080, 640] },
+  "components": [
+    { "id": "caller", "type": "external", "label": "LambdaWrapper", "pos": [480, 40], "size": [200, 56] },
+    { "id": "dispatcher", "type": "backend", "label": "LambdaUtils.extract", "pos": [480, 180], "size": [200, 56], "tag": "多分支分派" },
+    { "id": "idea", "type": "backend", "label": "IdeaProxy", "pos": [150, 330], "size": [120, 50] },
+    { "id": "groovy", "type": "backend", "label": "Groovy", "pos": [300, 330], "size": [120, 50] },
+    { "id": "reflect", "type": "backend", "label": "Reflect", "pos": [515, 330], "size": [130, 50], "tag": "标准路径" },
+    { "id": "kotlin", "type": "backend", "label": "Kotlin", "pos": [680, 330], "size": [120, 50] },
+    { "id": "shadow", "type": "backend", "label": "Shadow 兜底", "pos": [830, 330], "size": [120, 50] },
+    { "id": "cache", "type": "database", "label": "ColumnCache 列缓存", "pos": [480, 490], "size": [200, 56] }
+  ],
+  "boundaries": [
+    { "kind": "region", "label": "LambdaMeta 五种实现", "wraps": ["idea", "groovy", "reflect", "kotlin", "shadow"] }
+  ],
+  "connections": [
+    { "id": "c1", "from": "caller", "to": "dispatcher", "label": "SFunction", "variant": "emphasis", "labelDy": 24 },
+    { "id": "c2", "from": "dispatcher", "to": "reflect", "label": "标准序列化", "variant": "emphasis", "labelDy": 22 },
+    { "id": "c3", "from": "reflect", "to": "cache", "label": "属性→列名", "variant": "emphasis", "labelDy": 24 }
+  ],
+  "cards": [
+    { "dot": "emerald", "title": "要点", "items": ["依赖 writeReplace", "ClassValue 缓存", "反射失败降级兜底"] }
+  ]
+}

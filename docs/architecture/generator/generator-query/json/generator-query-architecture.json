@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": { "title": "元数据查询架构图", "quality_profile": "showcase", "locale": "zh-CN" },
+  "components": [
+    { "id": "cfg", "type": "backend", "label": "ConfigBuilder", "pos": [60, 90], "size": [140, 56] },
+    { "id": "dq", "type": "backend", "label": "DefaultQuery", "pos": [360, 90], "size": [140, 56], "tag": "默认实现" },
+    { "id": "meta", "type": "backend", "label": "MetaWrapper", "pos": [640, 90], "size": [150, 56] },
+    { "id": "jdbc", "type": "external", "label": "JDBC驱动", "pos": [640, 210], "size": [150, 56] },
+    { "id": "reg", "type": "backend", "label": "TypeRegistry", "pos": [640, 330], "size": [150, 56] },
+    { "id": "kw", "type": "external", "label": "关键字处理器", "pos": [60, 230], "size": [150, 56] },
+    { "id": "ti", "type": "database", "label": "TableInfo", "pos": [360, 250], "size": [140, 56] }
+  ],
+  "boundaries": [
+    { "kind": "region", "label": "JDBC 封装", "wraps": ["meta", "jdbc"] }
+  ],
+  "connections": [
+    { "id": "c1", "from": "cfg", "to": "dq", "variant": "emphasis" },
+    { "id": "c2", "from": "dq", "to": "meta" },
+    { "id": "c3", "from": "meta", "to": "jdbc", "variant": "dashed" },
+    { "id": "c4", "from": "dq", "to": "reg", "variant": "dashed" },
+    { "id": "c5", "from": "kw", "to": "dq", "variant": "dashed" },
+    { "id": "c6", "from": "dq", "to": "ti", "variant": "emphasis" }
+  ],
+  "cards": [
+    { "dot": "emerald", "title": "要点", "items": ["queryTables 采集", "连接在 finally 关闭", "列类型按注册表转换"] }
+  ]
+}

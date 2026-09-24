@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": { "title": "主键生成架构图", "quality_profile": "showcase", "locale": "zh-CN", "viewBox": [900, 720] },
+  "components": [
+    { "id": "caller", "type": "external", "label": "Insert 注入方法", "pos": [350, 40], "size": [200, 56] },
+    { "id": "idworker", "type": "backend", "label": "IdWorker 门面", "pos": [350, 170], "size": [200, 52], "tag": "静态委托" },
+    { "id": "defaultgen", "type": "backend", "label": "默认雪花生成器", "pos": [350, 300], "size": [200, 52] },
+    { "id": "sequence", "type": "backend", "label": "Sequence 雪花", "pos": [350, 430], "size": [200, 52], "tag": "synchronized 取号" },
+    { "id": "clock", "type": "database", "label": "SystemClock", "pos": [350, 560], "size": [200, 52] }
+  ],
+  "connections": [
+    { "id": "c1", "from": "caller", "to": "idworker", "label": "getId", "variant": "emphasis", "labelDy": 22 },
+    { "id": "c2", "from": "idworker", "to": "defaultgen", "label": "nextId", "variant": "default", "labelDy": 22 },
+    { "id": "c3", "from": "defaultgen", "to": "sequence", "label": "委托", "variant": "default", "labelDy": 22 },
+    { "id": "c4", "from": "sequence", "to": "clock", "label": "取毫秒", "variant": "emphasis", "labelDy": 22 }
+  ],
+  "cards": [
+    { "dot": "emerald", "title": "要点", "items": ["雪花 64 位", "同毫秒 4096", "时钟回拨拒绝"] }
+  ]
+}

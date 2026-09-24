@@ -1,0 +1,140 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "jsqlparser域架构",
+    "quality_profile": "showcase",
+    "locale": "zh-CN",
+    "viewBox": [
+      960,
+      440
+    ]
+  },
+  "components": [
+    {
+      "id": "chain",
+      "type": "external",
+      "label": "MP插件链",
+      "pos": [
+        60,
+        60
+      ],
+      "size": [
+        150,
+        60
+      ]
+    },
+    {
+      "id": "cache",
+      "type": "backend",
+      "label": "解析缓存",
+      "pos": [
+        340,
+        60
+      ],
+      "size": [
+        150,
+        60
+      ],
+      "tag": "parser-cache"
+    },
+    {
+      "id": "inter",
+      "type": "backend",
+      "label": "智能拦截器",
+      "pos": [
+        620,
+        60
+      ],
+      "size": [
+        160,
+        60
+      ],
+      "tag": "sql-interceptors"
+    },
+    {
+      "id": "common",
+      "type": "backend",
+      "label": "common线程池",
+      "pos": [
+        340,
+        220
+      ],
+      "size": [
+        150,
+        60
+      ]
+    },
+    {
+      "id": "jsql",
+      "type": "external",
+      "label": "JSQLParser库",
+      "pos": [
+        620,
+        220
+      ],
+      "size": [
+        160,
+        60
+      ]
+    },
+    {
+      "id": "db",
+      "type": "database",
+      "label": "数据库",
+      "pos": [
+        60,
+        220
+      ],
+      "size": [
+        150,
+        60
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "c1",
+      "from": "chain",
+      "to": "cache",
+      "label": "parse",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c2",
+      "from": "cache",
+      "to": "inter",
+      "label": "AST",
+      "variant": "default"
+    },
+    {
+      "id": "c3",
+      "from": "inter",
+      "to": "common",
+      "variant": "dashed"
+    },
+    {
+      "id": "c4",
+      "from": "common",
+      "to": "jsql",
+      "variant": "default"
+    },
+    {
+      "id": "c5",
+      "from": "chain",
+      "to": "db",
+      "variant": "emphasis"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "emerald",
+      "title": "域职责",
+      "items": [
+        "SQL解析与缓存",
+        "拦截改写多表SQL",
+        "三版本兼容"
+      ]
+    }
+  ]
+}

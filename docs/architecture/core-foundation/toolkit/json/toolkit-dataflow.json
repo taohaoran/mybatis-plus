@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "diagram_type": "dataflow",
+  "meta": { "title": "SQL 安全与脚本数据流", "quality_profile": "showcase", "locale": "zh-CN" },
+  "stages": [
+    { "label": "输入" },
+    { "label": "处理" },
+    { "label": "产物" },
+    { "label": "下游" }
+  ],
+  "nodes": [
+    { "id": "sql", "type": "frontend", "label": "原始 SQL 文本", "stage": 0, "row": 0 },
+    { "id": "param", "type": "frontend", "label": "用户参数", "stage": 0, "row": 1 },
+    { "id": "parser", "type": "backend", "label": "TableNameParser", "stage": 1, "row": 0 },
+    { "id": "inject", "type": "security", "label": "注入正则检测", "stage": 1, "row": 1 },
+    { "id": "script", "type": "backend", "label": "动态片段生成", "stage": 1, "row": 2 },
+    { "id": "tables", "type": "database", "label": "表名集合", "stage": 2, "row": 0 },
+    { "id": "check", "type": "security", "label": "合法/非法判定", "stage": 2, "row": 1 },
+    { "id": "frag", "type": "backend", "label": "if/trim 片段", "stage": 2, "row": 2 },
+    { "id": "plugin", "type": "external", "label": "插件改写", "stage": 3, "row": 0 },
+    { "id": "ms", "type": "database", "label": "MappedStatement", "stage": 3, "row": 2 }
+  ],
+  "flows": [
+    { "from": "sql", "to": "parser", "label": "切词", "variant": "emphasis", "route": "straight" },
+    { "from": "param", "to": "inject", "label": "校验", "variant": "default", "route": "straight" },
+    { "from": "parser", "to": "tables", "label": "提取表名", "variant": "emphasis", "route": "straight" },
+    { "from": "inject", "to": "check", "label": "正则匹配", "variant": "default", "route": "straight" },
+    { "from": "script", "to": "frag", "label": "包裹标签", "variant": "default", "route": "straight" },
+    { "from": "tables", "to": "plugin", "label": "供改写", "variant": "dashed", "route": "straight" },
+    { "from": "frag", "to": "ms", "label": "写入", "variant": "emphasis", "route": "straight" }
+  ]
+}

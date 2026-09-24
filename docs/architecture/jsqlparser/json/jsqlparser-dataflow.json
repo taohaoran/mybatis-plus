@@ -1,0 +1,97 @@
+{
+  "schema_version": 1,
+  "diagram_type": "dataflow",
+  "meta": {
+    "title": "jsqlparser域数据流",
+    "quality_profile": "showcase",
+    "locale": "zh-CN",
+    "viewBox": [
+      1120,
+      380
+    ]
+  },
+  "stages": [
+    {
+      "label": "SQL文本"
+    },
+    {
+      "label": "查缓存"
+    },
+    {
+      "label": "解析AST"
+    },
+    {
+      "label": "改写"
+    },
+    {
+      "label": "执行"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "n1",
+      "type": "frontend",
+      "label": "原SQL",
+      "stage": 0,
+      "row": 0
+    },
+    {
+      "id": "n2",
+      "type": "backend",
+      "label": "缓存",
+      "stage": 1,
+      "row": 0
+    },
+    {
+      "id": "n3",
+      "type": "backend",
+      "label": "JSQLParser",
+      "stage": 2,
+      "row": 0
+    },
+    {
+      "id": "n4",
+      "type": "backend",
+      "label": "租户/分页",
+      "stage": 3,
+      "row": 0
+    },
+    {
+      "id": "n5",
+      "type": "database",
+      "label": "数据库",
+      "stage": 4,
+      "row": 0
+    }
+  ],
+  "flows": [
+    {
+      "from": "n1",
+      "to": "n2",
+      "label": "SQL",
+      "variant": "emphasis",
+      "route": "straight"
+    },
+    {
+      "from": "n2",
+      "to": "n3",
+      "label": "未命中",
+      "variant": "default",
+      "route": "straight"
+    },
+    {
+      "from": "n3",
+      "to": "n4",
+      "label": "AST",
+      "variant": "default",
+      "route": "straight"
+    },
+    {
+      "from": "n4",
+      "to": "n5",
+      "label": "新SQL",
+      "variant": "emphasis",
+      "route": "straight"
+    }
+  ]
+}

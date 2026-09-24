@@ -1,0 +1,134 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "AR与仓储架构图",
+    "quality_profile": "showcase",
+    "locale": "zh-CN",
+    "viewBox": [
+      900,
+      460
+    ]
+  },
+  "components": [
+    {
+      "id": "model",
+      "type": "frontend",
+      "label": "实体Model",
+      "pos": [
+        80,
+        60
+      ],
+      "size": [
+        150,
+        60
+      ],
+      "tag": "AR模式"
+    },
+    {
+      "id": "repo",
+      "type": "frontend",
+      "label": "仓储IRepository",
+      "pos": [
+        80,
+        220
+      ],
+      "size": [
+        160,
+        60
+      ],
+      "tag": "Repository"
+    },
+    {
+      "id": "helper",
+      "type": "backend",
+      "label": "SqlHelper",
+      "pos": [
+        380,
+        140
+      ],
+      "size": [
+        150,
+        60
+      ],
+      "tag": "会话辅助"
+    },
+    {
+      "id": "session",
+      "type": "backend",
+      "label": "SqlSession",
+      "pos": [
+        640,
+        60
+      ],
+      "size": [
+        150,
+        60
+      ]
+    },
+    {
+      "id": "mapper",
+      "type": "database",
+      "label": "BaseMapper",
+      "pos": [
+        640,
+        220
+      ],
+      "size": [
+        150,
+        60
+      ]
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "extension AR/repository",
+      "wraps": [
+        "model",
+        "repo",
+        "helper"
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "c1",
+      "from": "model",
+      "to": "helper",
+      "label": "insert",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c2",
+      "from": "repo",
+      "to": "helper",
+      "label": "CRUD",
+      "variant": "default"
+    },
+    {
+      "id": "c3",
+      "from": "helper",
+      "to": "session",
+      "label": "开/关",
+      "variant": "emphasis"
+    },
+    {
+      "id": "c4",
+      "from": "session",
+      "to": "mapper",
+      "variant": "default"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "emerald",
+      "title": "主路径",
+      "items": [
+        "实体/仓储",
+        "SqlHelper开会话",
+        "Mapper执行并关闭"
+      ]
+    }
+  ]
+}

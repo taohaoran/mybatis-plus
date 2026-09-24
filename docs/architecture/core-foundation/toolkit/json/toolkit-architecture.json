@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": { "title": "基础工具集架构图", "quality_profile": "showcase", "locale": "zh-CN", "viewBox": [1100, 660] },
+  "components": [
+    { "id": "callers", "type": "external", "label": "core 各子系统", "pos": [430, 40], "size": [240, 56] },
+    { "id": "strutils", "type": "backend", "label": "StringUtils/常量", "pos": [180, 210], "size": [150, 52] },
+    { "id": "sqlutils", "type": "backend", "label": "SQL 安全脚本", "pos": [475, 210], "size": [150, 52], "tag": "注入检测/片段" },
+    { "id": "config", "type": "database", "label": "全局配置/枚举缓存", "pos": [790, 210], "size": [160, 52] },
+    { "id": "reflect", "type": "backend", "label": "反射/桥接工具", "pos": [475, 350], "size": [150, 52] },
+    { "id": "mybatis", "type": "external", "label": "MyBatis API", "pos": [430, 510], "size": [240, 56] }
+  ],
+  "boundaries": [
+    { "kind": "region", "label": "core/toolkit 静态工具集", "wraps": ["strutils", "sqlutils", "config", "reflect"] }
+  ],
+  "connections": [
+    { "id": "c1", "from": "callers", "to": "sqlutils", "label": "静态调用", "variant": "emphasis", "labelDy": 24 },
+    { "id": "c2", "from": "strutils", "to": "sqlutils", "label": "字符串转换", "variant": "default" },
+    { "id": "c3", "from": "config", "to": "sqlutils", "label": "取策略", "variant": "dashed" },
+    { "id": "c4", "from": "sqlutils", "to": "reflect", "label": "反射收集", "variant": "default", "labelDy": 24 },
+    { "id": "c5", "from": "reflect", "to": "mybatis", "label": "桥接", "variant": "emphasis", "labelDy": 24 }
+  ],
+  "cards": [
+    { "dot": "emerald", "title": "要点", "items": ["纯静态无状态", "ConcurrentHashMap 缓存", "SQL 注入正则预检"] }
+  ]
+}

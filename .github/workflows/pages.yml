@@ -1,0 +1,64 @@
+# GitHub Pages 部署 workflow（GitHub Actions 发布源）
+# 由 github-pages-deploy skill 模板生成：部署 docs/architecture 目录
+# 内容源优先级：存在 docs/architecture-archify / docs/architecture_archify 时严格按该源部署，
+# 否则回退部署 docs/architecture。构建时固定执行 scripts/build-docs-html.py（md→html + 三级中文导览 + 左上角返回按钮）。
+name: Deploy architecture docs to GitHub Pages
+
+on:
+  push:
+    branches: [feat-docs-20260925]
+    paths:
+      - 'docs/architecture/**'
+      - 'docs/architecture-archify/**'
+      - 'docs/architecture_archify/**'
+      - 'scripts/build-docs-html.py'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      # ---- 内容源选择：archify 源存在则严格按它部署，否则回退 docs/architecture ----
+      - name: Build site content (archify source priority)
+        run: |
+          set -euo pipefail
+          rm -rf site && mkdir -p site
+          if [ -d "docs/architecture-archify" ] || [ -d "docs/architecture_archify" ]; then
+            SRC=""
+            if [ -d "docs/architecture-archify" ]; then SRC="docs/architecture-archify"; else SRC="docs/architecture_archify"; fi
+            echo "==> $SRC found -> deploying its content strictly"
+            cp -R "$SRC/." site/
+          else
+            echo "==> no archify source dir found -> deploying docs/architecture"
+            cp -R docs/architecture/. site/
+          fi
+          # ---- md 默认转 html + 强制生成导览 index.md（链接全部 md 与 html）并渲染为 index.html ----
+          pip install --quiet markdown
+          python3 scripts/build-docs-html.py site --site-name "MyBatis-Plus 架构文档" --group-label "boot-starter=启动器|core-foundation=核心基础|core-mapping=核心映射|extension-plugins=扩展插件|generator=代码生成器|jsqlparser=JSQLParser 支持|spring=Spring 集成" --label-map "boot-starter=启动器|core-foundation=核心基础|core-mapping=核心映射|extension-plugins=扩展插件|generator=代码生成器|jsqlparser=JSQLParser 支持|spring=Spring 集成|boot-autoconfigure=自动配置|boot-native-test=原生与测试|annotations=注解|batch=批量操作|core-support=核心支持|id-generator=主键生成|lambda-parser=Lambda 解析|toolkit=工具包|type-handlers=类型处理器|conditions-wrapper=条件构造器|config-bootstrap=配置引导|mapper-runtime=Mapper 运行时|sql-injector=SQL 注入器|table-metadata=表元数据|ar-repository=AR 仓储|chain-conditions=链式条件|db-toolkit=数据库工具|ddl=DDL 支持|injector-ext=注入器扩展|interceptor-core=拦截器核心|json-handlers=JSON 处理器|key-generators=键生成器|pagination=分页插件|scripting-p6spy=脚本与 P6Spy|generator-config=生成器配置|generator-core=生成器核心|generator-engine=生成器引擎|generator-query=生成器查询|parser-cache=解析器缓存|sql-interceptors=SQL 拦截器|spring-integration=Spring 集成|system=系统"
+          touch site/.nojekyll
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

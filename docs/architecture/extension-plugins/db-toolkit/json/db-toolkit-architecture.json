@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": { "title": "db-toolkit架构图", "quality_profile": "showcase", "locale": "zh-CN", "viewBox": [900, 440] },
+  "components": [
+    { "id": "db", "type": "frontend", "label": "Db静态门面", "pos": [80, 60], "size": [150, 60], "tag": "50+静态方法" },
+    { "id": "sq", "type": "backend", "label": "SqlHelper", "pos": [360, 60], "size": [150, 60], "tag": "会话/批量" },
+    { "id": "simple", "type": "backend", "label": "SimpleQuery", "pos": [80, 220], "size": [150, 60], "tag": "集合转换" },
+    { "id": "jdbc", "type": "backend", "label": "JdbcUtils", "pos": [360, 220], "size": [150, 60], "tag": "DbType判定" },
+    { "id": "mapper", "type": "database", "label": "BaseMapper", "pos": [640, 140], "size": [150, 60] }
+  ],
+  "boundaries": [
+    { "kind": "region", "label": "extension toolkit", "wraps": ["db", "sq", "simple", "jdbc"] }
+  ],
+  "connections": [
+    { "id": "c1", "from": "db", "to": "sq", "label": "execute", "variant": "emphasis" },
+    { "id": "c2", "from": "simple", "to": "sq", "label": "复用", "variant": "dashed" },
+    { "id": "c3", "from": "sq", "to": "mapper", "label": "开/关会话", "variant": "emphasis" },
+    { "id": "c4", "from": "db", "to": "jdbc", "label": "判类型", "variant": "default" }
+  ],
+  "cards": [
+    { "dot": "emerald", "title": "主路径", "items": ["静态调用", "SqlHelper开会话", "Mapper执行后关闭"] }
+  ]
+}

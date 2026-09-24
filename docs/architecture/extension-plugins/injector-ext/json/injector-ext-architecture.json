@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": { "title": "扩展注入方法架构图", "quality_profile": "showcase", "locale": "zh-CN", "viewBox": [900, 440] },
+  "components": [
+    { "id": "injector", "type": "external", "label": "用户SqlInjector", "pos": [80, 60], "size": [160, 60], "tag": "core" },
+    { "id": "base", "type": "backend", "label": "AbstractMethod", "pos": [360, 60], "size": [150, 60], "tag": "core基类" },
+    { "id": "batch", "type": "backend", "label": "批量插入", "pos": [640, 30], "size": [160, 50] },
+    { "id": "upsert", "type": "backend", "label": "Upsert", "pos": [640, 95], "size": [160, 50] },
+    { "id": "logic", "type": "backend", "label": "逻辑删除族", "pos": [640, 160], "size": [160, 50] },
+    { "id": "ms", "type": "database", "label": "MappedStatement", "pos": [360, 240], "size": [150, 60], "tag": "Configuration" }
+  ],
+  "boundaries": [
+    { "kind": "region", "label": "extension injector.methods", "wraps": ["batch", "upsert", "logic"] }
+  ],
+  "connections": [
+    { "id": "c1", "from": "injector", "to": "base", "label": "注册方法", "variant": "emphasis" },
+    { "id": "c2", "from": "base", "to": "batch", "label": "继承", "variant": "default" },
+    { "id": "c3", "from": "base", "to": "upsert", "label": "继承", "variant": "default" },
+    { "id": "c4", "from": "base", "to": "logic", "label": "继承", "variant": "default" },
+    { "id": "c5", "from": "batch", "to": "ms", "label": "注册SQL", "variant": "emphasis" }
+  ],
+  "cards": [
+    { "dot": "emerald", "title": "主路径", "items": ["启动期注入", "拼动态SQL", "注册进Configuration"] }
+  ]
+}

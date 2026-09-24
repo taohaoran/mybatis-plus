@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "diagram_type": "sequence",
+  "meta": { "title": "元数据初始化时序", "quality_profile": "showcase", "locale": "zh-CN", "viewBox": [1000, 700], "column_fit": "spread" },
+  "participants": [
+    { "id": "inj", "type": "external", "label": "注入器" },
+    { "id": "th", "type": "backend", "label": "TableInfoHelper" },
+    { "id": "ti", "type": "backend", "label": "TableInfo" },
+    { "id": "cache", "type": "database", "label": "缓存" }
+  ],
+  "messages": [
+    { "id": "m1", "from": "inj", "to": "th", "y": 170, "label": "initTableInfo", "variant": "emphasis" },
+    { "id": "m2", "from": "th", "to": "cache", "y": 240, "label": "查缓存", "variant": "default" },
+    { "id": "m3", "from": "cache", "to": "th", "y": 300, "label": "未命中", "variant": "return" },
+    { "id": "m4", "from": "th", "to": "ti", "y": 370, "label": "解析表名/字段", "variant": "default" },
+    { "id": "m5", "from": "th", "to": "cache", "y": 440, "label": "写入缓存", "variant": "emphasis" },
+    { "id": "m6", "from": "th", "to": "inj", "y": 510, "label": "TableInfo", "variant": "return" }
+  ]
+}
